@@ -1,10 +1,17 @@
 #include "DisplayObject.h"
 
+#include <SFML/Graphics.hpp>
+
 using namespace ProtoGame;
 
-DisplayObject::DisplayObject(void* sprite)
+DisplayObject::DisplayObject(sf::Sprite* sprite)
 	: m_sprite(sprite)
 {
+}
+
+ProtoGame::DisplayObject::DisplayObject(sf::Texture* texture)
+{
+	m_sprite = new sf::Sprite(*texture);
 }
 
 DisplayObject::~DisplayObject()
@@ -35,6 +42,11 @@ void DisplayObject::setScale(float scale)
 bool DisplayObject::isVivible() const
 {
 	return m_visible;
+}
+
+sf::Sprite * ProtoGame::DisplayObject::getSprite() const
+{
+	return m_sprite;
 }
 
 float DisplayObject::getAlpha() const

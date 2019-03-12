@@ -1,12 +1,18 @@
 #pragma once
 
+namespace sf
+{
+	class Sprite;
+	class Texture;
+}
+
 namespace ProtoGame 
 {
 
 	class DisplayObject 
 	{
 	protected:
-		void* m_sprite = nullptr;
+		sf::Sprite* m_sprite = nullptr;
 
 		float m_scale = 1.0f;
 		float m_alpha = 1.0f;
@@ -15,7 +21,8 @@ namespace ProtoGame
 		bool m_visible = false;
 
 	public:
-		DisplayObject(void* sprite);
+		DisplayObject(sf::Sprite* sprite);
+		DisplayObject(sf::Texture* texture);
 		virtual ~DisplayObject();
 
 		void setPos();
@@ -30,6 +37,6 @@ namespace ProtoGame
 		bool isVivible() const;
 		//TODO: getPos() const;
 		
-		void* getSprite() const;
+		sf::Sprite* getSprite() const;
 	};
 }
