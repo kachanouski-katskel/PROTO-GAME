@@ -26,16 +26,23 @@ void Render::update()
 		{
 			continue;
 		}
-
 		g_window->draw(*displayObject->getSprite());
 	}
 
 	g_window->display();
 }
 
-void ProtoGame::Render::addChild(DisplayObject * object)
+void Render::addChild(DisplayObject * object)
 {
-	m_renderObjects.push_back(std::make_shared<DisplayObject>(*object));
+	m_renderObjects.push_back(object);
+}
+
+void Render::removeChild(DisplayObject* object)
+{
+	m_renderObjects.erase(std::remove_if(m_renderObjects.begin(), m_renderObjects.end(), 
+		[object](DisplayObject* renderObject) {
+			return object == renderObject;
+	}));
 }
 
 Render* Render::getInstance() 

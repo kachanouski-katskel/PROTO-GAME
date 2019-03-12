@@ -161,10 +161,12 @@
     <ClCompile Include="PROTO_GAME.cpp" />
     <ClCompile Include="Render\DisplayObject.cpp" />
     <ClCompile Include="Render\Render.cpp" />
+    <ClCompile Include="Render\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\DisplayObject.h" />
     <ClInclude Include="Render\Render.h" />
+    <ClInclude Include="Render\Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

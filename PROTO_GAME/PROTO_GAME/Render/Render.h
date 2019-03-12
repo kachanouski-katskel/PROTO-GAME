@@ -11,7 +11,7 @@ namespace ProtoGame {
 	class DisplayObject;
 	class Render {
 	private:
-		std::vector<std::shared_ptr<DisplayObject>> m_renderObjects;
+		std::vector<DisplayObject*> m_renderObjects;
 		
 		static Render* g_instance;
 		static sf::RenderWindow* g_window;
@@ -22,6 +22,7 @@ namespace ProtoGame {
 		void update();
 
 		void addChild(DisplayObject* object);
+		void removeChild(DisplayObject* object);
 
 		static Render* getInstance();
 		static void destroyInstance();

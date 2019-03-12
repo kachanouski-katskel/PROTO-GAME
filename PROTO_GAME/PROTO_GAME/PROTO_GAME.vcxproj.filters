@@ -30,12 +30,18 @@
     <ClCompile Include="Render\DisplayObject.cpp">
       <Filter>Файлы ресурсов\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Render\Vec2.cpp">
+      <Filter>Файлы ресурсов\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Render.h">
       <Filter>Файлы ресурсов\Render</Filter>
     </ClInclude>
     <ClInclude Include="Render\DisplayObject.h">
+      <Filter>Файлы ресурсов\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Vec2.h">
       <Filter>Файлы ресурсов\Render</Filter>
     </ClInclude>
   </ItemGroup>

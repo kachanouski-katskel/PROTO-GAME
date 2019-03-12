@@ -1,4 +1,5 @@
 #pragma once
+#include "Vec2.h"
 
 namespace sf
 {
@@ -8,7 +9,6 @@ namespace sf
 
 namespace ProtoGame 
 {
-
 	class DisplayObject 
 	{
 	protected:
@@ -17,6 +17,7 @@ namespace ProtoGame
 		float m_scale = 1.0f;
 		float m_alpha = 1.0f;
 		float m_rotation = 0.0f;
+		Vec2F m_position;
 
 		bool m_visible = false;
 
@@ -25,7 +26,7 @@ namespace ProtoGame
 		DisplayObject(sf::Texture* texture);
 		virtual ~DisplayObject();
 
-		void setPos();
+		void setPosition(const Vec2F& position);
 		void setAlpha(float alpha);
 		void setScale(float scale);
 		void setRotation(float rotation);
@@ -35,7 +36,7 @@ namespace ProtoGame
 		float getRotation() const;
 		float getAlpha() const;
 		bool isVivible() const;
-		//TODO: getPos() const;
+		Vec2F getPosition() const;
 		
 		sf::Sprite* getSprite() const;
 	};
