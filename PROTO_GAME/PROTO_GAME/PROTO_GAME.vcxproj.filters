@@ -13,18 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы ресурсов\Render">
+      <UniqueIdentifier>{59bae544-b0fa-40c4-8cbc-b1dce2175502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Game">
+      <UniqueIdentifier>{e58f2304-f38a-459f-8285-32a4a8fff248}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="PROTO_GAME.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Render\Render.cpp">
+      <Filter>Файлы ресурсов\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\DisplayObject.cpp">
+      <Filter>Файлы ресурсов\Render</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Render\Render.h">
+      <Filter>Файлы ресурсов\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\DisplayObject.h">
+      <Filter>Файлы ресурсов\Render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
