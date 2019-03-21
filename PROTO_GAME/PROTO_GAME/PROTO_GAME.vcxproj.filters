@@ -19,6 +19,9 @@
     <Filter Include="Файлы ресурсов\Game">
       <UniqueIdentifier>{e58f2304-f38a-459f-8285-32a4a8fff248}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\Storage">
+      <UniqueIdentifier>{ed02dba8-be3d-47de-a098-cd96da5368a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PROTO_GAME.cpp">
@@ -33,6 +36,15 @@
     <ClCompile Include="Render\Vec2.cpp">
       <Filter>Файлы ресурсов\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Tile.cpp">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameBase.cpp">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Storage\TextureStorage.cpp">
+      <Filter>Файлы ресурсов\Storage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Render.h">
@@ -43,6 +55,15 @@
     </ClInclude>
     <ClInclude Include="Render\Vec2.h">
       <Filter>Файлы ресурсов\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Tile.h">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameBase.h">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Storage\TextureStorage.h">
+      <Filter>Файлы ресурсов\Storage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

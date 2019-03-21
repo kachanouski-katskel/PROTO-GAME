@@ -158,15 +158,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\GameBase.cpp" />
+    <ClCompile Include="Game\Tile.cpp" />
     <ClCompile Include="PROTO_GAME.cpp" />
     <ClCompile Include="Render\DisplayObject.cpp" />
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="Render\Vec2.cpp" />
+    <ClCompile Include="Storage\TextureStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\GameBase.h" />
+    <ClInclude Include="Game\Tile.h" />
     <ClInclude Include="Render\DisplayObject.h" />
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="Render\Vec2.h" />
+    <ClInclude Include="Storage\TextureStorage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
