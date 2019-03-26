@@ -45,6 +45,9 @@
     <ClCompile Include="Storage\TextureStorage.cpp">
       <Filter>Файлы ресурсов\Storage</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Tower.cpp">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Render.h">
@@ -64,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="Storage\TextureStorage.h">
       <Filter>Файлы ресурсов\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Tower.h">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\HpChecker.h">
+      <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

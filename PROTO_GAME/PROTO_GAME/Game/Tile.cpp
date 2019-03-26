@@ -18,6 +18,17 @@ Tile::Tile() : DisplayObject(new sf::Sprite())
 {
 }
 
+Tile::Tile(TTileType type)
+	: Tile()
+{
+	SetType(type);
+}
+
+TTileType ProtoGame::Tile::getType() const
+{
+	return mType;
+}
+
 void ProtoGame::Tile::SetType(TTileType type)
 {
 	mType = type;

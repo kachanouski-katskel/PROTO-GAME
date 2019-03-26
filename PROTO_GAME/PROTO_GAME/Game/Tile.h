@@ -8,6 +8,7 @@ namespace ProtoGame
 		TT_DEFAULT,
 		TT_TOWER,
 		TT_WALL,
+		TT_ENEMY
 	};
 
 
@@ -19,8 +20,12 @@ namespace ProtoGame
 		void swapTexture(TTileType type);
 	public:
 		Tile();
-		void SetType(TTileType type);
+		Tile(TTileType type);
 		virtual ~Tile();
+
+		TTileType getType() const;
+
+		void SetType(TTileType type);
 	};
 }
 
