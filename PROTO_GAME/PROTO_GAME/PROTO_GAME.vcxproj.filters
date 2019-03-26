@@ -48,6 +48,9 @@
     <ClCompile Include="Game\Tower.cpp">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Enemy.cpp">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Render.h">
@@ -72,6 +75,9 @@
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\HpChecker.h">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enemy.h">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
   </ItemGroup>
