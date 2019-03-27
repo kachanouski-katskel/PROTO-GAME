@@ -159,17 +159,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\Enemy.cpp" />
+    <ClCompile Include="Game\Field.cpp" />
     <ClCompile Include="Game\GameBase.cpp" />
     <ClCompile Include="Game\Tile.cpp" />
     <ClCompile Include="Game\Tower.cpp" />
     <ClCompile Include="PROTO_GAME.cpp" />
     <ClCompile Include="Render\DisplayObject.cpp" />
     <ClCompile Include="Render\Render.cpp" />
-    <ClCompile Include="Render\Vec2.cpp" />
     <ClCompile Include="Storage\TextureStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Enemy.h" />
+    <ClInclude Include="Game\Field.h" />
     <ClInclude Include="Game\GameBase.h" />
     <ClInclude Include="Game\HpChecker.h" />
     <ClInclude Include="Game\Tile.h" />

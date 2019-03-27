@@ -33,9 +33,6 @@
     <ClCompile Include="Render\DisplayObject.cpp">
       <Filter>Файлы ресурсов\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Render\Vec2.cpp">
-      <Filter>Файлы ресурсов\Render</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Tile.cpp">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClCompile>
@@ -49,6 +46,9 @@
       <Filter>Файлы ресурсов\Game</Filter>
     </ClCompile>
     <ClCompile Include="Game\Enemy.cpp">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Field.cpp">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,6 +78,9 @@
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Enemy.h">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Field.h">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
   </ItemGroup>

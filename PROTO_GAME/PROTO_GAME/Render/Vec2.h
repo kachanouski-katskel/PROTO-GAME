@@ -3,14 +3,29 @@
 
 namespace ProtoGame
 {
-	struct Vec2F
+	template<typename T>
+	struct Vec2
 	{
-		float mPosX = 0;
-		float mPosY = 0;
+		T mPosX = 0;
+		T mPosY = 0;
 
-		Vec2F();
-		Vec2F(float x, float y);
+		Vec2()
+		{
+			mPosX = T();
+			mPosY = T();
+		}
+		Vec2(T x, T y)
+		{
+			mPosX = x;
+			mPosY = y;
+		}
 		
-		friend Vec2F operator+(const Vec2F& l, const Vec2F& r);
+		Vec2<T> operator+(const Vec2<T>& other)
+		{
+			return Vec2<T>(mPosX + other.mPosX, mPosY + other.mPosY);
+		}
 	};
+
+	typedef Vec2<float> Vec2F;
+	typedef Vec2<int> Vec2I;
 }

@@ -31,6 +31,7 @@ namespace ProtoGame
 		void setScale(float scale);
 		void setRotation(float rotation);
 		void setVisible(bool visible);
+		void setColor(int r, int g, int b);
 
 		float getScale() const;
 		float getRotation() const;

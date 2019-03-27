@@ -28,6 +28,11 @@ void DisplayObject::setVisible(bool visible)
 	m_visible = visible;
 }
 
+void ProtoGame::DisplayObject::setColor(int r, int g, int b)
+{
+	m_sprite->setColor(sf::Color(r, g, b, m_sprite->getColor().a));
+}
+
 void DisplayObject::setRotation(float rotation)
 {
 	m_rotation = rotation;

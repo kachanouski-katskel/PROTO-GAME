@@ -8,7 +8,8 @@ namespace ProtoGame
 		TT_DEFAULT,
 		TT_TOWER,
 		TT_WALL,
-		TT_ENEMY
+		TT_ENEMY,
+		TT_HIGHLIGHT
 	};
 
 
@@ -16,8 +17,9 @@ namespace ProtoGame
 	{
 	private:
 		TTileType mType = TTileType::TT_DEFAULT;
+		Vec2I m_fieldPosition = Vec2I(0, 0);
 
-		void swapTexture(TTileType type);
+		void swapTexture(TTileType type);		
 	public:
 		Tile();
 		Tile(TTileType type);
@@ -26,6 +28,9 @@ namespace ProtoGame
 		TTileType getType() const;
 
 		void SetType(TTileType type);
+
+		void setFieldPosition(Vec2I position);
+		Vec2I getFieldPosition();
 	};
 }
 
