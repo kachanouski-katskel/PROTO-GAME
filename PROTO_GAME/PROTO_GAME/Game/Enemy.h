@@ -2,19 +2,18 @@
 #include "../Game/HpChecker.h"
 #include "../Game/Tile.h"
 
+#include <memory>
+
 namespace ProtoGame
 {
-	class EnemyStrategy
-	{
-		virtual void MakeMove() = 0;
-	};
+	class AttackStrategy;
 
 	class EnemyUnit :
 		public HPChecker,
 		public Tile
 	{
 	private:
-		EnemyStrategy* m_strategy = nullptr;
+		std::unique_ptr<AttackStrategy> m_strategy;
 		int m_attackPower = 0;
 	public:
 		EnemyUnit();
