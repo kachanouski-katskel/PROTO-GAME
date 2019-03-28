@@ -29,6 +29,9 @@ void Render::update()
 		g_window->draw(*displayObject->getSprite());
 	}
 
+	/*sf::View view = g_window->getView();
+	view.setRotation(view.getRotation() + 0.1f);
+	g_window->setView(view);*/
 	g_window->display();
 }
 

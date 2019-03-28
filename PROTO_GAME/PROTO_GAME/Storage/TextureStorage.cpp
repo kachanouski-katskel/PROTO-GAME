@@ -15,9 +15,8 @@ TextureStorage::~TextureStorage()
 
 void ProtoGame::TextureStorage::loadTextures()
 {
-	sf::Texture texture;
-	texture.loadFromFile("Resources/Textures/Wall.png");
-	m_texturesMap["wall"] = texture;
+	m_texturesMap["wall"].loadFromFile("Resources/Textures/Wall.png");
+	m_texturesMap["highlight"].loadFromFile("Resources/Textures/highlight.png");
 }
 
 void ProtoGame::TextureStorage::releaseTextures()

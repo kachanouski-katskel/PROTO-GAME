@@ -4,10 +4,12 @@
 namespace ProtoGame
 {
 	class Tile;
+	class Field;
 	class GameBase {
 	private:
 		std::vector<Tile*> m_tiles;
-		Tile* wall = nullptr;
+		
+		Field* m_field;
 	public:
 		GameBase();
 		virtual ~GameBase();
@@ -16,6 +18,7 @@ namespace ProtoGame
 
 		virtual void MouseDown(int x, int y);
 		virtual void MouseUp(int x, int y);
+		virtual void MouseMoved(int x, int y);
 
 		virtual void Update(double dt);
 		virtual void CheckEvents();
