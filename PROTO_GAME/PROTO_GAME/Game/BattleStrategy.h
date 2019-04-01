@@ -3,9 +3,20 @@
 namespace ProtoGame
 {
 	class ArmyState;
+	class EnemyUnit;
+	class Tower;
 	
-	class BattleStrategy
+	class BaseEnemyStrategy
 	{
-		virtual void MakeMove(const ArmyState* state) = 0;
+	public:
+		virtual void MakeMove(EnemyUnit* unit, const ArmyState* state) = 0;
+		virtual ~BaseEnemyStrategy() {};
+	};
+
+	class BaseTowerStrategy
+	{
+	public:
+		virtual void MakeMove(Tower* tower, const ArmyState* state) = 0;
+		virtual ~BaseTowerStrategy() {};
 	};
 }

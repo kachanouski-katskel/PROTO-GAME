@@ -7,21 +7,21 @@ Tower::Tower()
 {
 }
 
-ProtoGame::Tower::~Tower()
+Tower::~Tower()
 {
 }
 
-bool ProtoGame::Tower::isReadyAttack() const
+bool Tower::isReadyAttack() const
 {
 	return m_attackDelay <= 0;
 }
 
-void ProtoGame::Tower::Attack()
+void Tower::Attack()
 {
 	m_attackDelay = 0.0f;
 }
 
-void ProtoGame::Tower::Update(double dt)
+void Tower::Update(double dt)
 {
 	m_attackDelay -= dt;
 }
