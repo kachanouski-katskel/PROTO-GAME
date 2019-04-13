@@ -1,4 +1,6 @@
 #pragma once
+#include "Bastion.h"
+
 #include <vector>
 #include <memory>
 
@@ -9,20 +11,23 @@ namespace ProtoGame
 
 	class Tower;
 	class EnemyUnit;
+	class Bastion;
 
-
-	class ArmyState
+	class ArmyState :
+		public IUnitAddable
 	{
 	private:
 		std::vector<std::shared_ptr<EnemyUnit>> m_units;
 		std::vector<std::shared_ptr<Tower>> m_towers;
-
+		std::shared_ptr<Bastion> m_bastion;
 	public:
 		ArmyState();
 		virtual ~ArmyState();
 
-		void addUnit(std::shared_ptr<EnemyUnit> unit);
-		void addTower(std::shared_ptr<Tower> tower);
+		virtual void AddUnit(std::shared_ptr<EnemyUnit> unit) override;
+		void AddTower(std::shared_ptr<Tower> tower);
+
+		virtual void onUpdate(double dt);
 
 		VecShared<EnemyUnit> getUnits() const;
 		VecShared<Tower> getTowers() const;

@@ -14,3 +14,7 @@ EnemyUnit::~EnemyUnit()
 void EnemyUnit::Attack(HPChecker* checker)
 {
 }
+
+void EnemyUnit::onUpdate(double dt)
+{
+}

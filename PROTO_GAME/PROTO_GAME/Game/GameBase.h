@@ -1,14 +1,20 @@
 #pragma once
+#include "Bastion.h"
 #include <vector>
 
 namespace ProtoGame
 {
 	class Tile;
 	class Field;
-	class GameBase {
+	class EnemyUnit;
+	class ArmyState;
+
+	class GameBase
+	{
 	private:
 		std::vector<Tile*> m_tiles;
-		
+		std::shared_ptr<ArmyState> m_armyState;
+
 		Field* m_field;
 	public:
 		GameBase();
@@ -21,6 +27,5 @@ namespace ProtoGame
 		virtual void MouseMoved(int x, int y);
 
 		virtual void Update(double dt);
-		virtual void CheckEvents();
 	};
 }

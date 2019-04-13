@@ -21,5 +21,6 @@ namespace ProtoGame
 		virtual ~EnemyUnit();
 
 		void Attack(HPChecker* other);
+		virtual void onUpdate(double dt);
 	};
 }

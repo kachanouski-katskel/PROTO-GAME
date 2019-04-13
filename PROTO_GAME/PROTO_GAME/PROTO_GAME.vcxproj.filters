@@ -54,6 +54,9 @@
     <ClCompile Include="Game\ArmyState.cpp">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Bastion.cpp">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Render.h">
@@ -90,6 +93,9 @@
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\BattleStrategy.h">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Bastion.h">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
   </ItemGroup>

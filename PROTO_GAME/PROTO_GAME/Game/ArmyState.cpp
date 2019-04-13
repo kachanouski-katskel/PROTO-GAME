@@ -1,23 +1,28 @@
 #include "ArmyState.h"
+#include "Tower.h"
+#include "Enemy.h"
+
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 using namespace ProtoGame;
 
-ProtoGame::ArmyState::ArmyState()
+ArmyState::ArmyState()
+{
+	m_bastion = std::make_shared<Bastion>(this);
+}
+
+ArmyState::~ArmyState()
 {
 }
 
-ProtoGame::ArmyState::~ArmyState()
-{
-}
-
-void ProtoGame::ArmyState::addUnit(std::shared_ptr<EnemyUnit> unit)
+void ArmyState::AddUnit(std::shared_ptr<EnemyUnit> unit)
 {
 	m_units.push_back(std::move(unit));
 }
 
-void ProtoGame::ArmyState::addTower(std::shared_ptr<Tower> tower)
+void ArmyState::AddTower(std::shared_ptr<Tower> tower)
 {
 	m_towers.push_back(std::move(tower));
 }
@@ -30,4 +35,17 @@ VecShared<EnemyUnit> ArmyState::getUnits() const
 VecShared<Tower> ArmyState::getTowers() const
 {
 	return m_towers;
+}
+
+void ArmyState::onUpdate(double dt)
+{
+	m_bastion->onUpdate(dt);
+	for (auto& tower : m_towers)
+	{
+		tower->Update(dt);
+	}
+	for (auto& unit : m_units)
+	{
+		unit->onUpdate(dt);
+	}
 }
