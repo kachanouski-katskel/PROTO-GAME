@@ -11,6 +11,7 @@ using namespace ProtoGame;
 ArmyState::ArmyState()
 {
 	m_bastion = std::make_shared<Bastion>(this);
+	m_bastion->setFieldPosition({ 50, 50 });
 }
 
 ArmyState::~ArmyState()
@@ -27,14 +28,19 @@ void ArmyState::AddTower(std::shared_ptr<Tower> tower)
 	m_towers.push_back(std::move(tower));
 }
 
-VecShared<EnemyUnit> ArmyState::getUnits() const
+const VecShared<EnemyUnit>& ArmyState::getUnits() const
 {
 	return m_units;
 }
 
-VecShared<Tower> ArmyState::getTowers() const
+const VecShared<Tower>& ArmyState::getTowers() const
 {
 	return m_towers;
+}
+
+const Bastion* ProtoGame::ArmyState::getBastion() const
+{
+	return m_bastion.get();
 }
 
 void ArmyState::onUpdate(double dt)
@@ -46,6 +52,8 @@ void ArmyState::onUpdate(double dt)
 	}
 	for (auto& unit : m_units)
 	{
+		auto strategy = unit->getStrategy();
+		strategy->MakeMove(unit.get(), this, dt);
 		unit->onUpdate(dt);
 	}
 }

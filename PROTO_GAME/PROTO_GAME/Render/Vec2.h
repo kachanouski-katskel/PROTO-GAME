@@ -1,5 +1,5 @@
 #pragma once
-
+#include <math.h>
 
 namespace ProtoGame
 {
@@ -23,6 +23,32 @@ namespace ProtoGame
 		Vec2<T> operator+(const Vec2<T>& other)
 		{
 			return Vec2<T>(mPosX + other.mPosX, mPosY + other.mPosY);
+		}
+
+		Vec2<T> operator-(const Vec2<T>& other)
+		{
+			return Vec2<T>(mPosX - other.mPosX, mPosY - other.mPosY);
+		}
+
+		Vec2<T> operator*(T mul)
+		{
+			return Vec2<T>(mPosX * mul, mPosY * mul);
+		}
+
+		Vec2<T> operator/(T del)
+		{
+			return Vec2<T>(mPosX / del, mPosY / del);
+		}
+
+		T len() const
+		{
+			return sqrt(mPosX * mPosX + mPosY * mPosY);
+		}
+
+		Vec2<T> getNormalVec() const
+		{
+			Vec2<T> vec = *this;
+			return vec / len();
 		}
 	};
 

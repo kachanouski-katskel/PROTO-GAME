@@ -1,5 +1,6 @@
 #pragma once
 #include "../Game/HpChecker.h"
+#include "../Game/Tile.h"
 #include "Enemy.h"
 #include <memory>
 
@@ -12,7 +13,8 @@ namespace ProtoGame
 	};
 
 	class Bastion :
-		public HPChecker
+		public HPChecker,
+		public Tile
 	{
 	private:
 		float m_unitCreationRepeat = 0.0f;

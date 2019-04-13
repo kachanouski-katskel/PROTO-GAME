@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="Game\ArmyState.cpp" />
     <ClCompile Include="Game\Bastion.cpp" />
+    <ClCompile Include="Game\BattleStrategy.cpp" />
     <ClCompile Include="Game\Enemy.cpp" />
     <ClCompile Include="Game\Field.cpp" />
     <ClCompile Include="Game\GameBase.cpp" />

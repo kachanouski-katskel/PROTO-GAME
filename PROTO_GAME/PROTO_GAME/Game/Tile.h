@@ -9,7 +9,8 @@ namespace ProtoGame
 		TT_TOWER,
 		TT_WALL,
 		TT_ENEMY,
-		TT_HIGHLIGHT
+		TT_HIGHLIGHT,
+		TT_BASTION
 	};
 
 

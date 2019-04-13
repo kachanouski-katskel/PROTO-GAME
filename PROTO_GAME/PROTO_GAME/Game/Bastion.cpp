@@ -2,7 +2,8 @@
 
 using namespace ProtoGame;
 
-Bastion::Bastion(IUnitAddable* unitAddable) 
+Bastion::Bastion(IUnitAddable* unitAddable) :
+	Tile(TTileType::TT_BASTION)
 {
 	m_unitAddable = std::shared_ptr<IUnitAddable>(unitAddable);
 

@@ -29,7 +29,8 @@ namespace ProtoGame
 
 		virtual void onUpdate(double dt);
 
-		VecShared<EnemyUnit> getUnits() const;
-		VecShared<Tower> getTowers() const;
+		const VecShared<EnemyUnit>& getUnits() const;
+		const VecShared<Tower>& getTowers() const;
+		const Bastion* getBastion() const;
 	};
 }
