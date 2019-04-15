@@ -16,7 +16,7 @@ namespace ProtoGame
 	private:
 		std::unique_ptr<BaseEnemyStrategy> m_strategy;
 		int m_attackPower = 0;
-		int m_moveSpeed = 0.0f;
+		float m_moveSpeed = 0.0f;
 	public:
 		EnemyUnit();
 		virtual ~EnemyUnit();
