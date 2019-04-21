@@ -9,7 +9,8 @@ Bastion::Bastion(IUnitAddable* unitAddable) :
 	BattleObject(TTileType::TT_BASTION),
 	m_unitAddable(unitAddable)
 {
-	m_hp = 30;
+	setHP(30);
+	setMaxHP(getHP());
 
 	m_unitCreatitonTimer = 9.0f;
 	m_unitCreationRepeat = 10.0f;

@@ -26,7 +26,10 @@ void Render::update()
 		{
 			continue;
 		}
-		g_window->draw(*displayObject->getSprite());
+		for (auto drawable : displayObject->getDrawables())
+		{
+			g_window->draw(*drawable);
+		}		
 	}
 
 	/*sf::View view = g_window->getView();

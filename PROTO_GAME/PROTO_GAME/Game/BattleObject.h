@@ -12,5 +12,7 @@ namespace ProtoGame
 	{
 	public:
 		BattleObject(TTileType type);
+
+		virtual void setPosition(const Vec2F & position) override;
 	};
 }

@@ -11,10 +11,11 @@ Tower::Tower(ITowerBallAddable* ballAddable) :
 	m_towerBallAddable(ballAddable)
 {
 	setVisible(true);
-	m_hp = 10.0f;
+	setHP(10.0f);
+	setMaxHP(getHP());
 
 	m_attackDelay = 3.0f;
-	m_attackPower = 100.0f;
+	m_attackPower = 2.0f;
 	m_attackRadius = 100.0f;
 
 	m_strategy = std::make_shared<EnemyTowerStrategy>();

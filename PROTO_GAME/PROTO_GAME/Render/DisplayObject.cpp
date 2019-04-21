@@ -80,6 +80,11 @@ sf::Sprite * ProtoGame::DisplayObject::getSprite() const
 	return m_sprite;
 }
 
+std::vector<sf::Drawable*> ProtoGame::DisplayObject::getDrawables() const
+{
+	return {getSprite()};
+}
+
 float DisplayObject::getAlpha() const
 {
 	return 1.0f * m_sprite->getColor().a / 256;
@@ -98,4 +103,9 @@ float DisplayObject::getScale() const
 Vec2F DisplayObject::getPosition() const
 {
 	return Vec2F(m_sprite->getPosition().x, m_sprite->getPosition().y);
+}
+
+Vec2F ProtoGame::DisplayObject::getSize() const
+{
+	return { (float)m_sprite->getTextureRect().width * getScale(), (float)m_sprite->getTextureRect().height * getScale()};
 }

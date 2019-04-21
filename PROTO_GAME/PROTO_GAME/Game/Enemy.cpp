@@ -11,10 +11,11 @@ EnemyUnit::EnemyUnit(Vec2F startPos)
 {
 	m_moveSpeed = 50.f;
 	m_attackCooldown = 5.0f;
-	m_attackRadius = 1.0f;
+	m_attackRadius = Vec2F(getSize().mPosX / 2, getSize().mPosY / 2).len() + 1.0f;
 
 	m_attackPower = 4;
-	m_hp = 10;
+	setHP(10);
+	setMaxHP(getHP());
 
 	m_strategy = std::make_shared<BaseEnemyMoveStrategy>();
 	setVisible(true);

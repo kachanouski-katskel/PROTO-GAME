@@ -19,7 +19,7 @@ namespace ProtoGame
 			mPosX = x;
 			mPosY = y;
 		}
-		
+
 		Vec2<T> operator+(const Vec2<T>& other) const
 		{
 			return Vec2<T>(mPosX + other.mPosX, mPosY + other.mPosY);
@@ -40,7 +40,7 @@ namespace ProtoGame
 			return Vec2<T>(mPosX / del, mPosY / del);
 		}
 
-		T len() const
+		float len() const
 		{
 			return sqrt(mPosX * mPosX + mPosY * mPosY);
 		}

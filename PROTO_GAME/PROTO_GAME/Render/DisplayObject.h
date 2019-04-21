@@ -1,10 +1,12 @@
 #pragma once
 #include "Vec2.h"
+#include <vector>
 
 namespace sf
 {
 	class Sprite;
 	class Texture;
+	class Drawable;
 }
 
 namespace ProtoGame 
@@ -26,19 +28,22 @@ namespace ProtoGame
 		DisplayObject(sf::Texture* texture);
 		virtual ~DisplayObject();
 
-		void setPosition(const Vec2F& position);
-		void setAlpha(float alpha);
-		void setScale(float scale);
-		void setRotation(float rotation);
-		void setVisible(bool visible);
-		void setColor(int r, int g, int b);
+		virtual void setPosition(const Vec2F& position);
+		virtual void setAlpha(float alpha);
+		virtual void setScale(float scale);
+		virtual void setRotation(float rotation);
+		virtual void setVisible(bool visible);
+		virtual void setColor(int r, int g, int b);
 
-		float getScale() const;
-		float getRotation() const;
-		float getAlpha() const;
-		bool isVivible() const;
-		Vec2F getPosition() const;
+		virtual float getScale() const;
+		virtual float getRotation() const;
+		virtual float getAlpha() const;
+		virtual bool isVivible() const;
+		virtual Vec2F getPosition() const;
+		virtual Vec2F getSize() const;
 		
 		sf::Sprite* getSprite() const;
+		
+		virtual std::vector<sf::Drawable*> getDrawables() const;
 	};
 }
