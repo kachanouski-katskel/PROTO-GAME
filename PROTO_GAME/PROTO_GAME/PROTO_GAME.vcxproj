@@ -160,12 +160,14 @@
   <ItemGroup>
     <ClCompile Include="Game\ArmyState.cpp" />
     <ClCompile Include="Game\Bastion.cpp" />
+    <ClCompile Include="Game\BattleObject.cpp" />
     <ClCompile Include="Game\BattleStrategy.cpp" />
     <ClCompile Include="Game\Enemy.cpp" />
     <ClCompile Include="Game\Field.cpp" />
     <ClCompile Include="Game\GameBase.cpp" />
     <ClCompile Include="Game\Tile.cpp" />
     <ClCompile Include="Game\Tower.cpp" />
+    <ClCompile Include="Game\TowerBall.cpp" />
     <ClCompile Include="PROTO_GAME.cpp" />
     <ClCompile Include="Render\DisplayObject.cpp" />
     <ClCompile Include="Render\Render.cpp" />
@@ -174,13 +176,16 @@
   <ItemGroup>
     <ClInclude Include="Game\ArmyState.h" />
     <ClInclude Include="Game\Bastion.h" />
+    <ClInclude Include="Game\BattleObject.h" />
     <ClInclude Include="Game\BattleStrategy.h" />
     <ClInclude Include="Game\Enemy.h" />
     <ClInclude Include="Game\Field.h" />
     <ClInclude Include="Game\GameBase.h" />
+    <ClInclude Include="Game\GameInterfaces.h" />
     <ClInclude Include="Game\HpChecker.h" />
     <ClInclude Include="Game\Tile.h" />
     <ClInclude Include="Game\Tower.h" />
+    <ClInclude Include="Game\TowerBall.h" />
     <ClInclude Include="Render\DisplayObject.h" />
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="Render\Vec2.h" />

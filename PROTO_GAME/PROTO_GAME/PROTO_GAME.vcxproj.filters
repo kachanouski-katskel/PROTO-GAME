@@ -60,6 +60,12 @@
     <ClCompile Include="Game\BattleStrategy.cpp">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\TowerBall.cpp">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\BattleObject.cpp">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Render.h">
@@ -99,6 +105,15 @@
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Bastion.h">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TowerBall.h">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\BattleObject.h">
+      <Filter>Файлы ресурсов\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameInterfaces.h">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
   </ItemGroup>

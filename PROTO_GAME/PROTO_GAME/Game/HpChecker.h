@@ -5,21 +5,23 @@ namespace ProtoGame
 	class HPChecker
 	{
 	protected:
-		int m_hp = 0;
+		float m_hp = 0.0f;
 	public:
+		virtual ~HPChecker() {}
+
 		virtual bool isDead() const
 		{
-			return m_hp <= 0;
+			return m_hp <= 0.0f;
 		}
-		virtual int getHP() const
+		virtual float getHP() const
 		{
 			return m_hp;
 		}
-		virtual void addHP(int value)
+		virtual void addHP(float value)
 		{
 			m_hp += value;
 		}
-		virtual void removeHP(int value)
+		virtual void removeHP(float value)
 		{
 			m_hp -= value;
 		}

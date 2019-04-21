@@ -1,11 +1,13 @@
 #include "Enemy.h"
+#include "BattleStrategy.h"
+
 #include <cmath>
 #include <cassert>
 
 using namespace ProtoGame;
 
 EnemyUnit::EnemyUnit(Vec2F startPos) 
-	: Tile(TTileType::TT_ENEMY)
+	: BattleObject(TTileType::TT_ENEMY)
 {
 	m_moveSpeed = 50.f;
 	m_attackCooldown = 5.0f;
@@ -14,7 +16,7 @@ EnemyUnit::EnemyUnit(Vec2F startPos)
 	m_attackPower = 4;
 	m_hp = 10;
 
-	m_strategy.reset(new BaseEnemyMoveStrategy());
+	m_strategy = std::make_shared<BaseEnemyMoveStrategy>();
 	setVisible(true);
 	setPosition(startPos);
 }

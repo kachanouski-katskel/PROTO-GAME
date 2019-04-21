@@ -29,4 +29,11 @@ namespace ProtoGame
 		virtual void MakeMove(Tower* tower, const ArmyState* state, const Field* field, double dt) = 0;
 		virtual ~BaseTowerStrategy() {};
 	};
+
+	class EnemyTowerStrategy:
+		public BaseTowerStrategy
+	{
+	public:
+		void MakeMove(Tower* tower, const ArmyState* state, const Field* field, double dt) override;
+	};
 }

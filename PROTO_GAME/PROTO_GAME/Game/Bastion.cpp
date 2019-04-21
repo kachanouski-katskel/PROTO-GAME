@@ -1,11 +1,14 @@
 #include "Bastion.h"
+#include "GameInterfaces.h"
+#include "Enemy.h"
+#include <cassert>
 
 using namespace ProtoGame;
 
 Bastion::Bastion(IUnitAddable* unitAddable) :
-	Tile(TTileType::TT_BASTION)
+	BattleObject(TTileType::TT_BASTION),
+	m_unitAddable(unitAddable)
 {
-	m_unitAddable = std::shared_ptr<IUnitAddable>(unitAddable);
 	m_hp = 30;
 
 	m_unitCreatitonTimer = 9.0f;
@@ -14,7 +17,6 @@ Bastion::Bastion(IUnitAddable* unitAddable) :
 
 Bastion::~Bastion()
 {
-	m_unitAddable.reset();
 }
 
 void Bastion::onUpdate(double dt)
@@ -29,5 +31,9 @@ void Bastion::onUpdate(double dt)
 
 void Bastion::createUnit()
 {
-	m_unitAddable->AddUnit(std::make_shared<EnemyUnit>(getPosition()));
+	assert(m_unitAddable != nullptr);
+	if (m_unitAddable != nullptr)
+	{
+		m_unitAddable->AddUnit(std::make_shared<EnemyUnit>(getPosition()));
+	}
 }

@@ -1,8 +1,5 @@
 #pragma once
-#include "../Game/HpChecker.h"
-#include "../Game/Tile.h"
-#include "../Game/BattleStrategy.h"
-
+#include "../Game/BattleObject.h"
 #include <memory>
 
 namespace ProtoGame
@@ -10,11 +7,10 @@ namespace ProtoGame
 	class BaseEnemyStrategy;
 
 	class EnemyUnit :
-		public HPChecker,
-		public Tile
+		public BattleObject
 	{
 	private:
-		std::unique_ptr<BaseEnemyStrategy> m_strategy;
+		std::shared_ptr<BaseEnemyStrategy> m_strategy;
 		int m_attackPower = 0;
 		float m_moveSpeed = 0.0f;
 		float m_attackRadius = 0.0f;

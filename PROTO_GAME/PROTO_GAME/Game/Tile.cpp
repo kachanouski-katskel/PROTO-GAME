@@ -45,12 +45,12 @@ void ProtoGame::Tile::SetType(TTileType type)
 	swapTexture(mType);
 }
 
-void ProtoGame::Tile::setFieldPosition(Vec2I position)
+void Tile::setFieldPosition(Vec2I position)
 {
 	m_fieldPosition = position;
 }
 
-Vec2I ProtoGame::Tile::getFieldPosition() const
+Vec2I Tile::getFieldPosition() const
 {
 	return m_fieldPosition;
 }

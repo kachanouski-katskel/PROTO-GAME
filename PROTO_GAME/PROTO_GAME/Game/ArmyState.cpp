@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "GameBase.h"
 #include "Field.h"
+#include "TowerBall.h"
 
 #include <vector>
 #include <memory>
@@ -16,6 +17,15 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 	m_bastion = std::make_shared<Bastion>(this);
 	Vec2I bastionPos = isEnemy ? Vec2I(80, 70) : Vec2I(10, 10);
 	Vec2F fPos = game->getField()->getCoordsByPosition(bastionPos);
+	if (!isEnemy)
+	{
+		std::shared_ptr<Tower> tower = std::make_shared<Tower>(this);
+		Vec2I towerPos = Vec2I(55, 50);
+		Vec2F tPos = game->getField()->getCoordsByPosition(towerPos);
+		tower->setFieldPosition(towerPos);
+		tower->setPosition(tPos);
+		m_towers.push_back(tower);
+	}
 	m_bastion->setFieldPosition(bastionPos);
 	m_bastion->setPosition(fPos);
 }
@@ -27,6 +37,11 @@ ArmyState::~ArmyState()
 void ArmyState::AddUnit(std::shared_ptr<EnemyUnit> unit)
 {
 	m_units.push_back(std::move(unit));
+}
+
+void ArmyState::AddBall(std::shared_ptr<TowerBall> ball)
+{
+	m_towerBalls.push_back(std::move(ball));
 }
 
 void ArmyState::AddTower(std::shared_ptr<Tower> tower)
@@ -44,16 +59,31 @@ const VecShared<Tower>& ArmyState::getTowers() const
 	return m_towers;
 }
 
-Bastion* ProtoGame::ArmyState::getBastion() const
+std::shared_ptr<Bastion> ProtoGame::ArmyState::getBastion() const
 {
-	return m_bastion.get();
+	return m_bastion;
 }
 
 void ArmyState::onUpdate(double dt)
 {
+	if (m_bastion->isDead())
+	{
+		return;
+	}
 	m_bastion->onUpdate(dt);
+
 	std::vector<Tower*> towersToDelete;
 	std::vector<EnemyUnit*> unitsToDelete;
+	std::vector<TowerBall*> ballsToDelete;
+	for (const auto& ball : m_towerBalls)
+	{
+		if (ball->getIsDead())
+		{
+			ballsToDelete.push_back(ball.get());
+			continue;
+		}
+		ball->Update(dt);
+	}
 	for (const auto& tower : m_towers)
 	{
 		if (tower->isDead())
@@ -62,6 +92,8 @@ void ArmyState::onUpdate(double dt)
 			continue;
 		}
 		tower->Update(dt);
+		auto strategy = tower->getStrategy();
+		strategy->MakeMove(tower.get(), m_game->getOppositeArmy(this), m_game->getField(), dt);
 	}
 	for (auto& unit : m_units)
 	{
@@ -70,9 +102,9 @@ void ArmyState::onUpdate(double dt)
 			unitsToDelete.push_back(unit.get());
 			continue;
 		}
+		unit->onUpdate(dt);
 		auto strategy = unit->getStrategy();
 		strategy->MakeMove(unit.get(), m_game->getOppositeArmy(this), m_game->getField(), dt);
-		unit->onUpdate(dt);
 	}
 	m_towers.erase(
 		std::remove_if(m_towers.begin(), m_towers.end(), 
@@ -90,5 +122,14 @@ void ArmyState::onUpdate(double dt)
 				return std::find(unitsToDelete.begin(), unitsToDelete.end(), unit.get()) != unitsToDelete.end();
 			}),
 		m_units.end()
+	);
+
+	m_towerBalls.erase(
+		std::remove_if(m_towerBalls.begin(), m_towerBalls.end(),
+			[ballsToDelete](const auto& ball)
+		{	
+			return std::find(ballsToDelete.begin(), ballsToDelete.end(), ball.get()) != ballsToDelete.end();
+		}),
+		m_towerBalls.end()
 	);
 }

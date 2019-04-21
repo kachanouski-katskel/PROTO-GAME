@@ -3,6 +3,7 @@
 #include "ArmyState.h"
 #include "Field.h"
 #include "Tower.h"
+#include "Enemy.h"
 #include <algorithm>
 #include <utility>
 
@@ -16,38 +17,47 @@ std::vector<Vec2F> getControlPoints(Vec2I start, Vec2I end, const Field* field)
 	return std::vector<Vec2F>();
 }
 
-std::pair<HPChecker*, Vec2F> getNearestEnemy(EnemyUnit* unit, const ArmyState* state, const Field* field)
+std::shared_ptr<BattleObject> getNearestEnemy(Vec2F curPosition, const ArmyState* state, const Field* field, bool onlyUnits = false)
 {
-	std::vector<std::pair<HPChecker*, Vec2F>> possibles;
-	for (auto& tower : state->getTowers())
-	{
-		possibles.emplace_back(tower.get(), tower->getPosition());
-	}
+	VecShared<BattleObject> possibles;
 	for (auto& enemy : state->getUnits())
 	{
-		possibles.emplace_back(enemy.get(), enemy->getPosition());
+		possibles.emplace_back(enemy);
 	}
-	possibles.emplace_back(state->getBastion(), state->getBastion()->getPosition());
+	if (!onlyUnits)
+	{
+		for (auto& tower : state->getTowers())
+		{
+			possibles.emplace_back(tower);
+		}
+		possibles.emplace_back(state->getBastion());
+	}
 	std::sort(possibles.begin(), possibles.end(),
 		[=](const auto& first, const auto& second)
 		{
-			return (unit->getPosition() - first.second).len() < (unit->getPosition() - second.second).len();
+			return (curPosition - first->getPosition()).len() < (curPosition - second->getPosition()).len();
 		}
 	);
+	if (possibles.empty())
+	{
+		return std::shared_ptr<BattleObject>();
+	}
 	return possibles.front();
 }
 
 void BaseEnemyMoveStrategy::MakeMove(EnemyUnit * unit, const ArmyState * state, const Field* field, double dt)
 {
-	auto enemyInfo = getNearestEnemy(unit, state, field);
+	auto enemyInfo = getNearestEnemy(unit->getPosition(), state, field);
+	if (!enemyInfo)
+		return;
 
-	Vec2F enemyPos = enemyInfo.second;
+	Vec2F enemyPos = enemyInfo->getPosition();
 	Vec2F unitPos = unit->getPosition();
 
 	float attackRadius = unit->getAttackRadius();
 	if ((unitPos - enemyPos).len() <= attackRadius)
 	{
-		unit->TryAttack(enemyInfo.first);
+		unit->TryAttack(enemyInfo.get());
 		return;
 	}
 
@@ -86,5 +96,14 @@ void BaseEnemyMoveStrategy::MakeMove(EnemyUnit * unit, const ArmyState * state, 
 	}
 
 
-	unit->TryAttack(enemyInfo.first);
+	unit->TryAttack(enemyInfo.get());
+}
+
+void EnemyTowerStrategy::MakeMove(Tower * tower, const ArmyState * state, const Field * field, double dt)
+{
+	auto enemyInfo = getNearestEnemy(tower->getPosition(), state, field, true);
+	if (enemyInfo)
+	{
+		tower->TryAttack(enemyInfo);
+	}
 }

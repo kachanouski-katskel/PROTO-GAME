@@ -20,22 +20,22 @@ namespace ProtoGame
 			mPosY = y;
 		}
 		
-		Vec2<T> operator+(const Vec2<T>& other)
+		Vec2<T> operator+(const Vec2<T>& other) const
 		{
 			return Vec2<T>(mPosX + other.mPosX, mPosY + other.mPosY);
 		}
 
-		Vec2<T> operator-(const Vec2<T>& other)
+		Vec2<T> operator-(const Vec2<T>& other) const
 		{
 			return Vec2<T>(mPosX - other.mPosX, mPosY - other.mPosY);
 		}
 
-		Vec2<T> operator*(T mul)
+		Vec2<T> operator*(T mul) const
 		{
 			return Vec2<T>(mPosX * mul, mPosY * mul);
 		}
 
-		Vec2<T> operator/(T del)
+		Vec2<T> operator/(T del) const
 		{
 			return Vec2<T>(mPosX / del, mPosY / del);
 		}
