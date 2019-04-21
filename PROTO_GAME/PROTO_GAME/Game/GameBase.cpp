@@ -6,6 +6,20 @@
 #include <memory>
 using namespace ProtoGame;
 
+const ArmyState * ProtoGame::GameBase::getOppositeArmy(const ArmyState* state) const
+{
+	if (state == m_enemyArmy.get()) 
+	{
+		return m_userArmy.get();
+	}
+	return m_enemyArmy.get();
+}
+
+Field * ProtoGame::GameBase::getField() const
+{
+	return m_field;
+}
+
 GameBase::GameBase()
 {
 }
@@ -17,7 +31,8 @@ GameBase::~GameBase()
 void GameBase::Init()
 {
 	m_field = new Field();
-	m_armyState = std::make_shared<ArmyState>();
+	m_userArmy = std::make_shared<ArmyState>(this, false);
+	m_enemyArmy = std::make_shared<ArmyState>(this, true);
 }
 
 void GameBase::MouseDown(int x, int y)
@@ -36,5 +51,21 @@ void ProtoGame::GameBase::MouseMoved(int x, int y)
 
 void GameBase::Update(double dt)
 {
-	m_armyState->onUpdate(dt);
+	if (m_enemyArmy->getBastion()->isDead() || m_userArmy->getBastion()->isDead())
+	{
+		m_finished = true;
+		return;
+	}
+	m_enemyArmy->onUpdate(dt);
+	m_userArmy->onUpdate(dt);
+}
+
+bool ProtoGame::GameBase::isFinished() const
+{
+	return m_finished;
+}
+
+void ProtoGame::GameBase::setFinished(bool value)
+{
+	m_finished = value;
 }

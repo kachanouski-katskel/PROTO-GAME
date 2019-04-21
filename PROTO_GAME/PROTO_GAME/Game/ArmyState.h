@@ -12,6 +12,7 @@ namespace ProtoGame
 	class Tower;
 	class EnemyUnit;
 	class Bastion;
+	class GameBase;
 
 	class ArmyState :
 		public IUnitAddable
@@ -20,8 +21,10 @@ namespace ProtoGame
 		std::vector<std::shared_ptr<EnemyUnit>> m_units;
 		std::vector<std::shared_ptr<Tower>> m_towers;
 		std::shared_ptr<Bastion> m_bastion;
+
+		GameBase* m_game = nullptr;
 	public:
-		ArmyState();
+		ArmyState(GameBase* game, bool isEnemy);
 		virtual ~ArmyState();
 
 		virtual void AddUnit(std::shared_ptr<EnemyUnit> unit) override;
@@ -31,6 +34,6 @@ namespace ProtoGame
 
 		const VecShared<EnemyUnit>& getUnits() const;
 		const VecShared<Tower>& getTowers() const;
-		const Bastion* getBastion() const;
+		Bastion* getBastion() const;
 	};
 }

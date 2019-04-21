@@ -31,7 +31,7 @@ namespace ProtoGame
 		void SetType(TTileType type);
 
 		void setFieldPosition(Vec2I position);
-		Vec2I getFieldPosition();
+		Vec2I getFieldPosition() const;
 	};
 }
 

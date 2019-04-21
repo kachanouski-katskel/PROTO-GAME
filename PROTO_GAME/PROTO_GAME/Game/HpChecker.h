@@ -4,6 +4,7 @@ namespace ProtoGame
 {
 	class HPChecker
 	{
+	protected:
 		int m_hp = 0;
 	public:
 		virtual bool isDead() const

@@ -50,7 +50,7 @@ void ProtoGame::Tile::setFieldPosition(Vec2I position)
 	m_fieldPosition = position;
 }
 
-Vec2I ProtoGame::Tile::getFieldPosition()
+Vec2I ProtoGame::Tile::getFieldPosition() const
 {
 	return m_fieldPosition;
 }

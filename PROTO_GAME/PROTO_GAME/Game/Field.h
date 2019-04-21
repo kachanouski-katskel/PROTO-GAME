@@ -22,8 +22,8 @@ namespace ProtoGame
 		Field();
 		virtual ~Field();
 
-		Vec2F getCoordsByPosition(Vec2I position);
-		Vec2I getPositionByCoords(Vec2F coords);
+		Vec2F getCoordsByPosition(Vec2I position) const;
+		Vec2I getPositionByCoords(Vec2F coords) const;
 		void highlightPosition(Vec2I position);
 	};
 }

@@ -42,10 +42,15 @@ void Render::addChild(DisplayObject * object)
 
 void Render::removeChild(DisplayObject* object)
 {
-	m_renderObjects.erase(std::remove_if(m_renderObjects.begin(), m_renderObjects.end(), 
-		[object](DisplayObject* renderObject) {
-			return object == renderObject;
-	}));
+	m_renderObjects.erase(
+		std::remove_if(m_renderObjects.begin(), m_renderObjects.end(), 
+			[object](DisplayObject* renderObject) 
+			{
+				return object == renderObject;
+			}
+		),
+		m_renderObjects.end()
+	);
 }
 
 Render* Render::getInstance() 

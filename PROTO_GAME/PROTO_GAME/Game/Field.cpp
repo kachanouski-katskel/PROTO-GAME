@@ -33,12 +33,12 @@ ProtoGame::Field::~Field()
 {
 }
 
-ProtoGame::Vec2F ProtoGame::Field::getCoordsByPosition(Vec2I position)
+ProtoGame::Vec2F ProtoGame::Field::getCoordsByPosition(Vec2I position) const
 {
 	return Vec2F(m_fieldOffset.mPosX + position.mPosX * m_tileSize, m_fieldOffset.mPosY + position.mPosY * m_tileSize);
 }
 
-ProtoGame::Vec2I ProtoGame::Field::getPositionByCoords(Vec2F coords)
+ProtoGame::Vec2I ProtoGame::Field::getPositionByCoords(Vec2F coords) const
 {
 	return Vec2I((int)(coords.mPosX - m_fieldOffset.mPosX) / m_tileSize, (int)(coords.mPosY - m_fieldOffset.mPosY) / m_tileSize);
 }

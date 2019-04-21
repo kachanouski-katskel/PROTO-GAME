@@ -12,8 +12,11 @@ namespace ProtoGame
 	class GameBase
 	{
 	private:
+		bool m_finished = false;
+
 		std::vector<Tile*> m_tiles;
-		std::shared_ptr<ArmyState> m_armyState;
+		std::shared_ptr<ArmyState> m_userArmy;
+		std::shared_ptr<ArmyState> m_enemyArmy;
 
 		Field* m_field;
 	public:
@@ -27,5 +30,12 @@ namespace ProtoGame
 		virtual void MouseMoved(int x, int y);
 
 		virtual void Update(double dt);
+
+		bool isFinished() const;
+		void setFinished(bool value);
+
+
+		const ArmyState* getOppositeArmy(const ArmyState* state) const;
+		Field* getField() const;
 	};
 }

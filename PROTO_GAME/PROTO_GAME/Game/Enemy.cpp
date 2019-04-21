@@ -1,27 +1,46 @@
 #include "Enemy.h"
 #include <cmath>
+#include <cassert>
 
 using namespace ProtoGame;
 
-EnemyUnit::EnemyUnit() 
+EnemyUnit::EnemyUnit(Vec2F startPos) 
 	: Tile(TTileType::TT_ENEMY)
 {
-	m_moveSpeed = 10.f;
+	m_moveSpeed = 50.f;
+	m_attackCooldown = 5.0f;
+	m_attackRadius = 1.0f;
+
+	m_attackPower = 4;
+	m_hp = 10;
+
 	m_strategy.reset(new BaseEnemyMoveStrategy());
 	setVisible(true);
+	setPosition(startPos);
 }
 
 EnemyUnit::~EnemyUnit()
 {
 }
 
-void EnemyUnit::Attack(HPChecker* checker)
+void EnemyUnit::TryAttack(HPChecker* checker)
 {
+	if (m_canAttackNow)
+	{
+		checker->removeHP(m_attackPower);
+		m_attackTimer = 0.0f;
+		m_canAttackNow = false;
+	}
 }
 
 void EnemyUnit::onUpdate(double dt)
 {
-	//m_strategy->MakeMove(this, nullptr, dt);
+	m_attackTimer += dt;
+	if (m_attackTimer >= m_attackCooldown)
+	{
+		m_attackTimer = 0.0f;
+		m_canAttackNow = true;
+	}
 }
 
 BaseEnemyStrategy * ProtoGame::EnemyUnit::getStrategy() const
@@ -32,16 +51,16 @@ BaseEnemyStrategy * ProtoGame::EnemyUnit::getStrategy() const
 void ProtoGame::EnemyUnit::MoveTo(Vec2F pos, double dt)
 {
 	Vec2F distVec = pos - getPosition();
-	float distance = distVec.len();
-	if (distance > 1)
-	{
-		Vec2F direction = distVec.getNormalVec();
-		Vec2F deltaVec = direction * (dt * m_moveSpeed);
-		setPosition(getPosition() + deltaVec);
-		setRotation(atan(distVec.mPosY / distVec.mPosX) / (acos(-1)) * 180.f * (distVec.mPosX < 0 ? -1 : 1));
-	} 
-	else
-	{
-		setPosition(Vec2F(100, 100));
-	}
+	setPosition(pos);
+	setRotation(atan(distVec.mPosY / distVec.mPosX) / (acos(-1)) * 180.f * (distVec.mPosX < 0 ? -1 : 1)); 
+}
+
+float ProtoGame::EnemyUnit::getMoveSpeed() const
+{
+	return m_moveSpeed;
+}
+
+float ProtoGame::EnemyUnit::getAttackRadius() const
+{
+	return m_attackRadius;
 }
