@@ -55,7 +55,7 @@ void ProtoGame::EnemyUnit::MoveTo(Vec2F pos, double dt)
 {
 	Vec2F distVec = pos - getPosition();
 	setPosition(pos);
-	setRotation(atan(distVec.mPosY / distVec.mPosX) / (acos(-1)) * 180.f * (distVec.mPosX < 0 ? -1 : 1)); 
+	setRotation(atan(distVec.mPosX / distVec.mPosY) / (acos(-1)) * 180.f + (distVec.mPosX < 0 ? 180.f : 0.f) + 90.f);
 }
 
 float ProtoGame::EnemyUnit::getMoveSpeed() const
