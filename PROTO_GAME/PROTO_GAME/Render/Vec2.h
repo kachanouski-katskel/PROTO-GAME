@@ -50,6 +50,18 @@ namespace ProtoGame
 			Vec2<T> vec = *this;
 			return vec / len();
 		}
+
+		Vec2<T> rotate(float angle) const
+		{
+			//clockwise rotation, angle in radians
+			return Vec2<T>(mPosX * cos(angle) + mPosY * sin(angle), -mPosX * sin(angle) + mPosY * cos(angle));
+		}
+
+		float getAngle() const
+		{
+			//returns angle in range -PI..PI;
+			return atan2(mPosY, mPosX);
+		}
 	};
 
 	typedef Vec2<float> Vec2F;

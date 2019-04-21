@@ -67,6 +67,9 @@
       <Filter>Файлы ресурсов\Game</Filter>
     </ClCompile>
     <ClCompile Include="Game\HPBar.cpp">
+		<Filter>Файлы ресурсов\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CloudObject.cpp">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,7 +122,11 @@
     <ClInclude Include="Game\GameInterfaces.h">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Game\HPBar.h">
+=======
+    <ClInclude Include="Game\CloudObject.h">
+>>>>>>> 543d7a0d2c51dd376d1e5e784cfd33fa59c97ca6
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
   </ItemGroup>
