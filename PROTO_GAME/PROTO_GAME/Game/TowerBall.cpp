@@ -11,6 +11,8 @@ TowerBall::TowerBall(std::shared_ptr<BattleObject> target, float attackPower, Ve
 {
 	setPosition(startPos);
 	setVisible(true);
+
+	m_flySpeed = 70.0f;
 }
 
 TowerBall::~TowerBall()
@@ -36,9 +38,8 @@ void TowerBall::Update(double dt)
 
 	setPosition(getPosition() + delta);
 	setRotation(atan(differenceVec.mPosY / differenceVec.mPosX) / (acos(-1)) * 180.f * (differenceVec.mPosX < 0 ? -1 : 1));
-	distanceCan -= delta.len();
 
-	if (distanceCan < EPS)
+	if (differenceVec.len() - delta.len() < EPS)
 	{
 		m_isDead = true;
 		target->removeHP(m_attackPower);

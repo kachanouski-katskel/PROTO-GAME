@@ -20,7 +20,7 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 	if (!isEnemy)
 	{
 		std::shared_ptr<Tower> tower = std::make_shared<Tower>(this);
-		Vec2I towerPos = Vec2I(55, 50);
+		Vec2I towerPos = Vec2I(75, 50);
 		Vec2F tPos = game->getField()->getCoordsByPosition(towerPos);
 		tower->setFieldPosition(towerPos);
 		tower->setPosition(tPos);

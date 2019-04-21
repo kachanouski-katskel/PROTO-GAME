@@ -22,6 +22,12 @@ void ProtoGame::Tile::swapTexture(TTileType type)
 		setScale(1.f / 4.f);
 		m_sprite->setOrigin({ m_sprite->getTexture()->getSize().x / 2.f, m_sprite->getTexture()->getSize().y / 2.f });
 	}
+	else if (type == TTileType::TT_TOWER_BALL)
+	{
+		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("enemy_unit"));
+		setScale(1.f / 4.f);
+		m_sprite->setOrigin({ m_sprite->getTexture()->getSize().x / 2.f, m_sprite->getTexture()->getSize().y / 2.f });
+	}
 }
 
 Tile::Tile() : DisplayObject(new sf::Sprite())

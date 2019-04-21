@@ -47,7 +47,7 @@ std::shared_ptr<BattleObject> getNearestEnemy(Vec2F curPosition, const ArmyState
 
 void BaseEnemyMoveStrategy::MakeMove(EnemyUnit * unit, const ArmyState * state, const Field* field, double dt)
 {
-	auto enemyInfo = getNearestEnemy(unit->getPosition(), state, field);
+	auto enemyInfo = getNearestEnemy(unit->getPosition(), state, field, true);
 	if (!enemyInfo)
 		return;
 

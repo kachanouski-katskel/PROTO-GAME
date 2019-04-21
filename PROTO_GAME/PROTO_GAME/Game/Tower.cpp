@@ -35,7 +35,7 @@ void Tower::TryAttack(std::shared_ptr<BattleObject> target)
 			{
 				m_towerBallAddable->AddBall(ball);
 			}
-			m_attackDelay = 0.0f;
+			m_attackTimer = 0.0f;
 			m_canAttackNow = false;
 		}
 	}
