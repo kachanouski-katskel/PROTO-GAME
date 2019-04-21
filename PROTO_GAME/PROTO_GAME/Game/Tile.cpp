@@ -28,6 +28,10 @@ void ProtoGame::Tile::swapTexture(TTileType type)
 		setScale(1.f / 4.f);
 		m_sprite->setOrigin({ m_sprite->getTexture()->getSize().x / 2.f, m_sprite->getTexture()->getSize().y / 2.f });
 	}
+	else if (type == TTileType::TT_TOWER)
+	{
+		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("wall"));
+	}
 }
 
 Tile::Tile() : DisplayObject(new sf::Sprite())

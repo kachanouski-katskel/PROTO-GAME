@@ -10,6 +10,7 @@ Tower::Tower(ITowerBallAddable* ballAddable) :
 	BattleObject(TTileType::TT_TOWER),
 	m_towerBallAddable(ballAddable)
 {
+	setVisible(true);
 	m_hp = 10.0f;
 
 	m_attackDelay = 3.0f;
