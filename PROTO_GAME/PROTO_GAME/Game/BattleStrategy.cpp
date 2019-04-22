@@ -107,3 +107,7 @@ void EnemyTowerStrategy::MakeMove(Tower * tower, const ArmyState * state, const 
 		tower->TryAttack(enemyInfo);
 	}
 }
+
+void SimpleCloudExpansionStrategy::MakeMove(CloudObject* object, const ArmyState* state, const Field* field, double dt)
+{
+}

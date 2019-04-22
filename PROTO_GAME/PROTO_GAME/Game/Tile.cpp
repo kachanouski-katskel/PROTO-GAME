@@ -1,6 +1,6 @@
 #include "Tile.h"
 #include "../Storage/TextureStorage.h"
-
+#include <iostream>
 using namespace ProtoGame;
 
 //TODO
@@ -31,6 +31,11 @@ void ProtoGame::Tile::swapTexture(TTileType type)
 	else if (type == TTileType::TT_TOWER)
 	{
 		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("wall"));
+	}
+	else if (type == TTileType::TT_CLOUD)
+	{
+		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("cloud"));
+		m_sprite->setOrigin({ m_sprite->getTexture()->getSize().x / 2.f, m_sprite->getTexture()->getSize().y / 2.f });
 	}
 }
 

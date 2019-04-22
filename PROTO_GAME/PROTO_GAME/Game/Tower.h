@@ -23,7 +23,7 @@ namespace ProtoGame
 		float m_attackRadius = 0.0f;
 		float m_attackPower = 0.0f;		
 
-		ITowerBallAddable* m_towerBallAddable;
+		ITowerBallAddable* m_towerBallAddable = nullptr;
 
 	public:
 		Tower(ITowerBallAddable* ballAddable);

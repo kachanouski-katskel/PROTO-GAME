@@ -5,6 +5,7 @@ namespace ProtoGame
 {
 	class EnemyUnit;
 	class TowerBall;
+	class CloudObject;
 
 	class IUnitAddable
 	{
@@ -16,5 +17,11 @@ namespace ProtoGame
 	{
 	public:
 		virtual void AddBall(std::shared_ptr<TowerBall> ball) = 0;
+	};
+
+	class ICloudAddable
+	{
+	public:
+		virtual void AddCloud(std::shared_ptr<CloudObject> cloud) = 0;
 	};
 }

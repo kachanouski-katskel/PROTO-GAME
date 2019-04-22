@@ -11,6 +11,7 @@ namespace ProtoGame
 		TT_ENEMY,
 		TT_HIGHLIGHT,
 		TT_TOWER_BALL,
+		TT_CLOUD,
 		TT_BASTION
 	};
 

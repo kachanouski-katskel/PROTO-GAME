@@ -4,6 +4,7 @@
 #include "GameBase.h"
 #include "Field.h"
 #include "TowerBall.h"
+#include "CloudObject.h"
 
 #include <vector>
 #include <memory>
@@ -26,6 +27,15 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 		tower->setPosition(tPos);
 		m_towers.push_back(tower);
 	}
+	else
+	{
+		std::shared_ptr<CloudObject> cloud = std::make_shared<CloudObject>(this);
+		Vec2I pos = Vec2I(60, 40);
+		Vec2F tPos = game->getField()->getCoordsByPosition(pos);
+		cloud->setFieldPosition(pos);
+		cloud->setPosition(tPos);
+		m_clouds.push_back(cloud);
+	}
 	m_bastion->setFieldPosition(bastionPos);
 	m_bastion->setPosition(fPos);
 }
@@ -44,6 +54,11 @@ void ArmyState::AddBall(std::shared_ptr<TowerBall> ball)
 	m_towerBalls.push_back(std::move(ball));
 }
 
+void ArmyState::AddCloud(std::shared_ptr<CloudObject> cloud)
+{
+	m_clouds.push_back(std::move(cloud));
+}
+
 void ArmyState::AddTower(std::shared_ptr<Tower> tower)
 {
 	m_towers.push_back(std::move(tower));
@@ -57,6 +72,11 @@ const VecShared<EnemyUnit>& ArmyState::getUnits() const
 const VecShared<Tower>& ArmyState::getTowers() const
 {
 	return m_towers;
+}
+
+const VecShared<CloudObject> ProtoGame::ArmyState::getClouds() const
+{
+	return m_clouds;
 }
 
 std::shared_ptr<Bastion> ProtoGame::ArmyState::getBastion() const
@@ -75,6 +95,7 @@ void ArmyState::onUpdate(double dt)
 	std::vector<Tower*> towersToDelete;
 	std::vector<EnemyUnit*> unitsToDelete;
 	std::vector<TowerBall*> ballsToDelete;
+	std::vector<CloudObject*> cloudsToDelete;
 	for (const auto& ball : m_towerBalls)
 	{
 		if (ball->getIsDead())
@@ -106,6 +127,16 @@ void ArmyState::onUpdate(double dt)
 		auto strategy = unit->getStrategy();
 		strategy->MakeMove(unit.get(), m_game->getOppositeArmy(this), m_game->getField(), dt);
 	}
+	for (auto& cloud : m_clouds)
+	{
+		if (cloud->isDead())
+		{
+			cloudsToDelete.push_back(cloud.get());
+			continue;
+		}
+		auto strategy = cloud->getStrategy();
+		strategy->MakeMove(cloud.get(), m_game->getOppositeArmy(this), m_game->getField(), dt);
+	}
 	m_towers.erase(
 		std::remove_if(m_towers.begin(), m_towers.end(), 
 			[towersToDelete](const auto& tower)
@@ -127,9 +158,17 @@ void ArmyState::onUpdate(double dt)
 	m_towerBalls.erase(
 		std::remove_if(m_towerBalls.begin(), m_towerBalls.end(),
 			[ballsToDelete](const auto& ball)
-		{	
-			return std::find(ballsToDelete.begin(), ballsToDelete.end(), ball.get()) != ballsToDelete.end();
-		}),
+			{	
+				return std::find(ballsToDelete.begin(), ballsToDelete.end(), ball.get()) != ballsToDelete.end();
+			}),
 		m_towerBalls.end()
+	);
+	m_clouds.erase(
+		std::remove_if(m_clouds.begin(), m_clouds.end(),
+			[cloudsToDelete](const auto & cloud)
+			{
+				return std::find(cloudsToDelete.begin(), cloudsToDelete.end(), cloud.get()) != cloudsToDelete.end();
+			}),
+		m_clouds.end()
 	);
 }
