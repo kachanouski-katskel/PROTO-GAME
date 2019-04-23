@@ -2,11 +2,14 @@
 #include "Tile.h"
 #include "../Render/Vec2.h"
 #include "TIleResolver.h"
+#include "../Storage/TextureStorage.h"
 
 
 ProtoGame::Field::Field()
 {
 	m_fieldData.resize(m_fieldSize.mPosY);
+	m_background = std::make_shared<FieldBackground>(m_tileSize * m_fieldSize.mPosX, m_tileSize * m_fieldSize.mPosY);
+
 	for (int i = 0, yLength = m_fieldSize.mPosY; i < yLength; i++)
 	{
 		m_fieldData[i].resize(m_fieldSize.mPosX);
@@ -16,12 +19,12 @@ ProtoGame::Field::Field()
 			if (i < 2 || j < 2 || xLength - j <= 2 || yLength - i <= 2)
 			{
 				m_fieldData[i][j] = new Tile(TTileType::TT_WALL);
-				m_fieldData[i][j]->setFieldPosition(Vec2I(j, i));
-				m_fieldData[i][j]->setVisible(true);
 			}
 
 			if (m_fieldData[i][j] != nullptr)
 			{
+				m_fieldData[i][j]->setFieldPosition(Vec2I(j, i));
+				m_fieldData[i][j]->setVisible(true);
 				m_fieldData[i][j]->setPosition(getCoordsByPosition(m_fieldData[i][j]->getFieldPosition()));
 			}
 		}
@@ -58,4 +61,13 @@ void ProtoGame::Field::highlightPosition(Vec2I position)
 	{
 		m_highlightTile->setColor(255, 0, 0);
 	}
+}
+
+ProtoGame::FieldBackground::FieldBackground(int width, int height) : ProtoGame::DisplayObject(new sf::Sprite())
+{
+	sf::Texture& ground = TextureStorage::getInstance()->getTexture("ground");
+	ground.setRepeated(true);
+	m_sprite->setTexture(ground);
+	m_sprite->setTextureRect({ 0, 0, width, height });
+	setVisible(true);
 }
