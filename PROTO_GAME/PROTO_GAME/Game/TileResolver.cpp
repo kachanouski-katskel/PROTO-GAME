@@ -7,6 +7,7 @@ namespace ProtoGame
 		{TTileType::TT_TOWER, {false, false, true}},
 		{TTileType::TT_BASTION, {false, false, true}},
 		{TTileType::TT_WALL, {false, false, false}},
+		{TTileType::TT_WATER, {false, false, true}},
 	};
 
 	const TilePermissions TileResolver::getTilePermissions(Tile * tile)

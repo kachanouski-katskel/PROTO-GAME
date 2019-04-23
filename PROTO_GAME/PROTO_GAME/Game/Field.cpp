@@ -3,6 +3,7 @@
 #include "../Render/Vec2.h"
 #include "TIleResolver.h"
 #include "../Storage/TextureStorage.h"
+#include <cmath>
 
 
 ProtoGame::Field::Field()
@@ -15,10 +16,18 @@ ProtoGame::Field::Field()
 		m_fieldData[i].resize(m_fieldSize.mPosX);
 		for (int j = 0, xLength = m_fieldSize.mPosX; j < xLength; j++)
 		{
+			// Walls around
 			m_fieldData[i][j] = nullptr;
 			if (i < 2 || j < 2 || xLength - j <= 2 || yLength - i <= 2)
 			{
 				m_fieldData[i][j] = new Tile(TTileType::TT_WALL);
+			}
+
+			// Lake in center
+			const int lakeRadius = 20;
+			if (pow(lakeRadius, 2) >= pow((i - m_fieldSize.mPosY / 2 + 1), 2) + pow((j - m_fieldSize.mPosX / 2 + 1), 2))
+			{
+				m_fieldData[i][j] = new Tile(TTileType::TT_WATER);
 			}
 
 			if (m_fieldData[i][j] != nullptr)
