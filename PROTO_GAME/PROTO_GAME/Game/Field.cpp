@@ -1,6 +1,8 @@
 #include "Field.h"
 #include "Tile.h"
 #include "../Render/Vec2.h"
+#include "TIleResolver.h"
+
 
 ProtoGame::Field::Field()
 {
@@ -48,7 +50,7 @@ void ProtoGame::Field::highlightPosition(Vec2I position)
 	m_highlightTile->setVisible(true);
 	Tile* tile = m_fieldData[position.mPosY][position.mPosX];
 	m_highlightTile->setPosition(getCoordsByPosition(position));
-	if (tile == nullptr)
+	if (TileResolver::getTilePermissions(tile).canBuildOn)
 	{
 		m_highlightTile->setColor(0, 255, 0);
 	}
