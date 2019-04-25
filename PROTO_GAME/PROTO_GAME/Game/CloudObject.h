@@ -6,6 +6,17 @@ namespace ProtoGame
 {
 	class BaseCloudExpansionStrategy;
 	class ICloudAddable;
+
+	struct CloudInfo 
+	{
+		int m_level = 1;
+		float m_baseUpgradeTime = 5.0f;
+		float m_currentUpgradeTime = 0.0f;
+
+		void CanUpgrade();
+		void getTween();
+		void Update(double dt);
+	};
 	
 	class CloudObject :
 		public BattleObject
