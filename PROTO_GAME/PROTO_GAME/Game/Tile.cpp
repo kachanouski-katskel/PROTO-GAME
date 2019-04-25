@@ -12,6 +12,11 @@ void ProtoGame::Tile::swapTexture(TTileType type)
 	{
 		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("wall"));
 	}
+	else if (type == TTileType::TT_WATER)
+	{
+		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("water"));
+		setScale(1.f / 4.f);
+	}
 	else if (type == TTileType::TT_HIGHLIGHT)
 	{
 		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("highlight"));

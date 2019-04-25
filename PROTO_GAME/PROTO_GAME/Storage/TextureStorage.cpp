@@ -15,6 +15,8 @@ TextureStorage::~TextureStorage()
 
 void ProtoGame::TextureStorage::loadTextures()
 {
+	m_texturesMap["ground"].loadFromFile("Resources/Textures/ground.png");
+	m_texturesMap["water"].loadFromFile("Resources/Textures/water.png");
 	m_texturesMap["wall"].loadFromFile("Resources/Textures/Wall.png");
 	m_texturesMap["highlight"].loadFromFile("Resources/Textures/highlight.png");
 	m_texturesMap["enemy_unit"].loadFromFile("Resources/Textures/enemy_unit.png");

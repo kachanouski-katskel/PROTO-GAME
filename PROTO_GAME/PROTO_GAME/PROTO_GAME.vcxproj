@@ -169,6 +169,7 @@
     <ClCompile Include="Game\GameBase.cpp" />
     <ClCompile Include="Game\HPBar.cpp" />
     <ClCompile Include="Game\Tile.cpp" />
+    <ClCompile Include="Game\TileResolver.cpp" />
     <ClCompile Include="Game\Tower.cpp" />
     <ClCompile Include="Game\TowerBall.cpp" />
     <ClCompile Include="PROTO_GAME.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Game\HPBar.h" />
     <ClInclude Include="Game\HpChecker.h" />
     <ClInclude Include="Game\Tile.h" />
+    <ClInclude Include="Game\TIleResolver.h" />
     <ClInclude Include="Game\Tower.h" />
     <ClInclude Include="Game\TowerBall.h" />
     <ClInclude Include="Render\DisplayObject.h" />
