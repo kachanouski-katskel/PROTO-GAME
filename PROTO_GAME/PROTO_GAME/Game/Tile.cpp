@@ -44,12 +44,12 @@ void ProtoGame::Tile::swapTexture(TTileType type)
 	}
 }
 
-Tile::Tile() : DisplayObject(new sf::Sprite())
+Tile::Tile(ZOrder zOrder /* = ZOrder::Z_DEFAULT */) : DisplayObject(new sf::Sprite(), zOrder)
 {
 }
 
-Tile::Tile(TTileType type)
-	: Tile()
+Tile::Tile(TTileType type, ZOrder zOrder /* = ZOrder::Z_DEFAULT */)
+	: Tile(zOrder)
 {
 	SetType(type);
 }

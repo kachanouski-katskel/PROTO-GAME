@@ -7,7 +7,7 @@
 using namespace ProtoGame;
 
 EnemyUnit::EnemyUnit(Vec2F startPos) 
-	: BattleObject(TTileType::TT_ENEMY)
+	: BattleObject(TTileType::TT_ENEMY, ZOrder::Z_UNIT)
 {
 	m_moveSpeed = 50.f;
 	m_attackCooldown = 5.0f;

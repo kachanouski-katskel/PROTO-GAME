@@ -5,8 +5,8 @@
 
 using namespace ProtoGame;
 
-DisplayObject::DisplayObject(sf::Sprite* sprite)
-	: m_sprite(sprite)
+DisplayObject::DisplayObject(sf::Sprite* sprite, ZOrder zOrder)
+	: m_sprite(sprite), m_zOrder(zOrder)
 {
 	Render::getInstance()->addChild(this);
 }
@@ -108,4 +108,9 @@ Vec2F DisplayObject::getPosition() const
 Vec2F ProtoGame::DisplayObject::getSize() const
 {
 	return { (float)m_sprite->getTextureRect().width * getScale(), (float)m_sprite->getTextureRect().height * getScale()};
+}
+
+ZOrder ProtoGame::DisplayObject::getZOrder() const
+{
+	return m_zOrder;
 }

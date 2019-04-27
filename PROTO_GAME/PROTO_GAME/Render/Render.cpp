@@ -41,6 +41,13 @@ void Render::update()
 void Render::addChild(DisplayObject * object)
 {
 	m_renderObjects.push_back(object);
+	for (int i = m_renderObjects.size() - 2; i >= 0; i--)
+	{
+		if (m_renderObjects[i]->getZOrder() > m_renderObjects[i + 1]->getZOrder())
+		{
+			std::swap(m_renderObjects[i], m_renderObjects[i + 1]);
+		}
+	}
 }
 
 void Render::removeChild(DisplayObject* object)

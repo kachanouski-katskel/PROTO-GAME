@@ -11,7 +11,7 @@ namespace ProtoGame
 		public Tile
 	{
 	public:
-		BattleObject(TTileType type);
+		BattleObject(TTileType type, ZOrder zOrder = ZOrder::Z_DEFAULT);
 
 		virtual void setPosition(const Vec2F & position) override;
 	};

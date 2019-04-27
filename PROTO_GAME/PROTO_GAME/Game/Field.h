@@ -8,6 +8,7 @@
 namespace ProtoGame
 {
 	class Tile;
+	enum class TTileType;
 
 	struct FieldBackground : public DisplayObject
 	{
@@ -24,9 +25,11 @@ namespace ProtoGame
 		int m_tileSize = 8;
 		Vec2F m_fieldOffset = Vec2F(0.f, 0.f);
 
-		Tile* m_highlightTile = nullptr;
+		std::unique_ptr<Tile> m_highlightTile;
 
-		std::vector<std::vector<Tile*>> m_fieldData;
+		std::vector<std::vector<std::shared_ptr<Tile>>> m_fieldData;
+
+		void addTileToField(TTileType type, Vec2I position);
 
 	public:
 		Field();
@@ -36,5 +39,6 @@ namespace ProtoGame
 		Vec2I getPositionByCoords(Vec2F coords) const;
 		void highlightPosition(Vec2I position);
 		Tile* getFieldTile(Vec2I position) const;
+		void placeBuildingBlock(Vec2I position);
 	};
 }

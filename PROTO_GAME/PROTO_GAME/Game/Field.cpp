@@ -7,6 +7,7 @@
 
 using namespace ProtoGame;
 
+
 Field::Field()
 {
 	m_fieldData.resize(m_fieldSize.mPosX);
@@ -21,14 +22,14 @@ Field::Field()
 			m_fieldData[i][j] = nullptr;
 			if (i < 2 || j < 2 || xLength - i <= 2 || yLength - j <= 2)
 			{
-				m_fieldData[i][j] = new Tile(TTileType::TT_WALL);
+				m_fieldData[i][j] = std::make_shared<Tile>(TTileType::TT_WALL);
 			}
 
 			// Lake in center
 			const int lakeRadius = 20;
 			if (pow(lakeRadius, 2) >= pow((i - m_fieldSize.mPosX / 2 + 1), 2) + pow((j - m_fieldSize.mPosY / 2 + 1), 2))
 			{
-				m_fieldData[i][j] = new Tile(TTileType::TT_WATER);
+				m_fieldData[i][j] = std::make_shared<Tile>(TTileType::TT_WATER);
 			}
 
 			if (m_fieldData[i][j] != nullptr)
@@ -40,7 +41,7 @@ Field::Field()
 		}
 	}
 
-	m_highlightTile = new Tile(TTileType::TT_HIGHLIGHT);
+	m_highlightTile = std::make_unique<Tile>(TTileType::TT_HIGHLIGHT, ZOrder::Z_HIGHLIGHT);
 	m_highlightTile->setAlpha(0.5f);
 }
 
@@ -61,9 +62,9 @@ Vec2I Field::getPositionByCoords(Vec2F coords) const
 void Field::highlightPosition(Vec2I position)
 {
 	m_highlightTile->setVisible(true);
-	Tile* tile = m_fieldData[position.mPosX][position.mPosY];
+	std::shared_ptr<Tile> tile = m_fieldData[position.mPosX][position.mPosY];
 	m_highlightTile->setPosition(getCoordsByPosition(position));
-	if (TileResolver::getTilePermissions(tile).canBuildOn)
+	if (TileResolver::getTilePermissions(tile.get()).canBuildOn)
 	{
 		m_highlightTile->setColor(0, 255, 0);
 	}
@@ -75,14 +76,34 @@ void Field::highlightPosition(Vec2I position)
 
 Tile* Field::getFieldTile(Vec2I position) const
 {
-	return m_fieldData[position.mPosX][position.mPosY];
+	return m_fieldData[position.mPosX][position.mPosY].get();
 }
 
-FieldBackground::FieldBackground(int width, int height) : DisplayObject(new sf::Sprite())
+void Field::placeBuildingBlock(Vec2I position)
+{
+	std::shared_ptr<Tile> tile = m_fieldData[position.mPosX][position.mPosY];
+	if (TileResolver::getTilePermissions(tile.get()).canBuildOn)
+	{
+		addTileToField(TTileType::TT_TOWER, position);
+		//m_fieldData[position.mPosX][position.mPosY] = std::make_shared<Tile>(TTileType::TT_TOWER);
+	}
+}
+
+FieldBackground::FieldBackground(int width, int height) : ProtoGame::DisplayObject(new sf::Sprite())
 {
 	sf::Texture& ground = TextureStorage::getInstance()->getTexture("ground");
 	ground.setRepeated(true);
 	m_sprite->setTexture(ground);
 	m_sprite->setTextureRect({ 0, 0, width, height });
 	setVisible(true);
+}
+
+void Field::addTileToField(TTileType type, Vec2I position)
+{
+	const int x = position.mPosX;
+	const int y = position.mPosY;
+	m_fieldData[x][y] = std::make_shared<Tile>(type);
+	m_fieldData[x][y]->setFieldPosition(position);
+	m_fieldData[x][y]->setVisible(true);
+	m_fieldData[x][y]->setPosition(getCoordsByPosition(position));
 }
