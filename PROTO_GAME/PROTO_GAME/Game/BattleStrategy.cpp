@@ -4,16 +4,68 @@
 #include "Field.h"
 #include "Tower.h"
 #include "Enemy.h"
+#include "TIleResolver.h"
 #include <algorithm>
 #include <utility>
-
+#include <queue>
+#include <unordered_map>
+#include <map>
+#include <chrono>
+#include <iostream>
 using namespace ProtoGame;
 
 static const float EPS = 0.00001;
-static const float MODEL_SIZE = 10.0f;
+static const float MODEL_SIZE = 10.0f; 
+
+static const int hashSize = 100;
+inline int __hash(const std::pair<int, int>& pair) {
+	return pair.first * hashSize + pair.second;
+}
+
+inline std::pair<int, int> __dehash(int hash) {
+	return std::make_pair(hash / hashSize, hash % hashSize);
+}
 
 std::vector<Vec2F> getControlPoints(Vec2I start, Vec2I end, const Field* field)
 {
+	std::queue<int> q;
+	std::vector<int> p(10000, -1);
+
+	q.push(__hash({ start.mPosX, start.mPosY }));
+	std::vector<std::pair<int, int>> masks = {
+		{ -1, 0},
+		{ 1, 0},
+		{ 0, -1},
+		{ 0, 1}
+	};
+	std::vector<int> ans;
+	p[q.front()] = 0;
+	while (!q.empty()) 
+	{
+		auto curHash = q.front();
+		q.pop();
+		if (curHash == __hash({end.mPosX, end.mPosY})) {
+			auto next = p[curHash];
+			while (next != 0) {
+				// std::cerr << next << std::endl;
+				ans.push_back(next);
+				next = p[next];
+			}
+			break;
+		}
+		for (int i = 0; i < masks.size(); i++) {
+			auto to_ = __dehash(curHash);
+			auto to = std::make_pair(to_.first + masks[i].first, to_.second + masks[i].second);
+			Tile* tile = field->getFieldTile(Vec2I(to.first, to.second));
+			auto test = TileResolver::getTilePermissions(tile).canStepOn;
+			if (test && p[__hash(to)] == -1) {
+				p[__hash(to)] = curHash;
+				q.push(__hash(to));
+			}
+		}
+	}
+
+
 	return std::vector<Vec2F>();
 }
 
@@ -65,7 +117,7 @@ void BaseEnemyMoveStrategy::MakeMove(EnemyUnit * unit, const ArmyState * state, 
 	float distanceLeft = unit->getMoveSpeed() * dt;
 	std::vector<Vec2F> points = getControlPoints(
 		field->getPositionByCoords(enemyPos),
-		unit->getFieldPosition(), 
+		field->getPositionByCoords(unit->getPosition()), 
 		field);
 	points.insert(points.begin(), unitPos);
 	points.push_back(enemyPos);

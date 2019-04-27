@@ -1,5 +1,6 @@
 #pragma once
 #include <math.h>
+#include <utility>
 
 namespace ProtoGame
 {
@@ -66,4 +67,15 @@ namespace ProtoGame
 
 	typedef Vec2<float> Vec2F;
 	typedef Vec2<int> Vec2I;
+
+
+	struct PairHash {;
+		static const int PRIME_1 = 80021;
+
+		template<typename T1, typename T2>
+		std::size_t operator() (const std::pair<T1, T2>& pair) const
+		{
+			return PairHash::PRIME_1 * pair.first + pair.second;
+		}
+	};
 }

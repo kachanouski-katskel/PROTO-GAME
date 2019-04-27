@@ -20,7 +20,7 @@ namespace ProtoGame
 	protected:
 		std::shared_ptr<FieldBackground> m_background;
 
-		const Vec2I m_fieldSize = Vec2I(100, 80);
+		const Vec2I m_fieldSize = Vec2I(80, 100);
 		int m_tileSize = 8;
 		Vec2F m_fieldOffset = Vec2F(0.f, 0.f);
 
@@ -35,5 +35,6 @@ namespace ProtoGame
 		Vec2F getCoordsByPosition(Vec2I position) const;
 		Vec2I getPositionByCoords(Vec2F coords) const;
 		void highlightPosition(Vec2I position);
+		Tile* getFieldTile(Vec2I position) const;
 	};
 }
