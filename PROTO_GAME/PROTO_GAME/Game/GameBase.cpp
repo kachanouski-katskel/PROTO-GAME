@@ -41,6 +41,8 @@ void GameBase::MouseDown(int x, int y)
 
 void GameBase::MouseUp(int x, int y)
 {	
+	Vec2I pos = m_field->getPositionByCoords(Vec2F(x, y));
+	m_field->placeBuildingBlock(pos);
 }
 
 void ProtoGame::GameBase::MouseMoved(int x, int y)

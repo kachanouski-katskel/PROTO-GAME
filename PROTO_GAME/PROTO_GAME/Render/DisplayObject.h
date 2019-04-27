@@ -11,6 +11,14 @@ namespace sf
 
 namespace ProtoGame 
 {
+	enum class ZOrder
+	{
+		Z_DEFAULT,
+		Z_HIGHLIGHT,
+		Z_UNIT,
+		Z_CLOUD
+	};
+
 	class DisplayObject 
 	{
 	protected:
@@ -20,11 +28,12 @@ namespace ProtoGame
 		float m_alpha = 1.0f;
 		float m_rotation = 0.0f;
 		Vec2F m_position;
+		const ZOrder m_zOrder = ZOrder::Z_DEFAULT;
 
 		bool m_visible = false;
 
 	public:
-		DisplayObject(sf::Sprite* sprite);
+		DisplayObject(sf::Sprite* sprite, ZOrder zOrder = ZOrder::Z_DEFAULT);
 		DisplayObject(sf::Texture* texture);
 		virtual ~DisplayObject();
 
@@ -41,6 +50,7 @@ namespace ProtoGame
 		virtual bool isVivible() const;
 		virtual Vec2F getPosition() const;
 		virtual Vec2F getSize() const;
+		virtual ZOrder getZOrder() const;
 		
 		sf::Sprite* getSprite() const;
 		

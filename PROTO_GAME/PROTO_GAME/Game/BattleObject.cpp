@@ -2,8 +2,8 @@
 
 using namespace ProtoGame;
 
-BattleObject::BattleObject(TTileType type)
-	: Tile(type)
+BattleObject::BattleObject(TTileType type, ZOrder zOrder /*= ZOrder::Z_DEFAULT*/)
+	: Tile(type, zOrder)
 {
 }
 

@@ -6,6 +6,16 @@
 #include <cmath>
 
 
+void ProtoGame::Field::addTileToField(TTileType type, Vec2I position)
+{
+	const int x = position.mPosX;
+	const int y = position.mPosY;
+	m_fieldData[y][x] = std::make_shared<Tile>(type);
+	m_fieldData[y][x]->setFieldPosition(position);
+	m_fieldData[y][x]->setVisible(true);
+	m_fieldData[y][x]->setPosition(getCoordsByPosition({ x, y }));
+}
+
 ProtoGame::Field::Field()
 {
 	m_fieldData.resize(m_fieldSize.mPosY);
@@ -20,14 +30,14 @@ ProtoGame::Field::Field()
 			m_fieldData[i][j] = nullptr;
 			if (i < 2 || j < 2 || xLength - j <= 2 || yLength - i <= 2)
 			{
-				m_fieldData[i][j] = new Tile(TTileType::TT_WALL);
+				m_fieldData[i][j] = std::make_shared<Tile>(TTileType::TT_WALL);
 			}
 
 			// Lake in center
 			const int lakeRadius = 20;
 			if (pow(lakeRadius, 2) >= pow((i - m_fieldSize.mPosY / 2 + 1), 2) + pow((j - m_fieldSize.mPosX / 2 + 1), 2))
 			{
-				m_fieldData[i][j] = new Tile(TTileType::TT_WATER);
+				m_fieldData[i][j] = std::make_shared<Tile>(TTileType::TT_WATER);
 			}
 
 			if (m_fieldData[i][j] != nullptr)
@@ -39,7 +49,7 @@ ProtoGame::Field::Field()
 		}
 	}
 
-	m_highlightTile = new Tile(TTileType::TT_HIGHLIGHT);
+	m_highlightTile = std::make_unique<Tile>(TTileType::TT_HIGHLIGHT, ZOrder::Z_HIGHLIGHT);
 	m_highlightTile->setAlpha(0.5f);
 }
 
@@ -60,15 +70,25 @@ ProtoGame::Vec2I ProtoGame::Field::getPositionByCoords(Vec2F coords) const
 void ProtoGame::Field::highlightPosition(Vec2I position)
 {
 	m_highlightTile->setVisible(true);
-	Tile* tile = m_fieldData[position.mPosY][position.mPosX];
+	std::shared_ptr<Tile> tile = m_fieldData[position.mPosY][position.mPosX];
 	m_highlightTile->setPosition(getCoordsByPosition(position));
-	if (TileResolver::getTilePermissions(tile).canBuildOn)
+	if (TileResolver::getTilePermissions(tile.get()).canBuildOn)
 	{
 		m_highlightTile->setColor(0, 255, 0);
 	}
 	else
 	{
 		m_highlightTile->setColor(255, 0, 0);
+	}
+}
+
+void ProtoGame::Field::placeBuildingBlock(Vec2I position)
+{
+	std::shared_ptr<Tile> tile = m_fieldData[position.mPosY][position.mPosX];
+	if (TileResolver::getTilePermissions(tile.get()).canBuildOn)
+	{
+		addTileToField(TTileType::TT_TOWER, position);
+		//m_fieldData[position.mPosX][position.mPosY] = std::make_shared<Tile>(TTileType::TT_TOWER);
 	}
 }
 

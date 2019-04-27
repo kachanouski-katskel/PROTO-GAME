@@ -24,8 +24,8 @@ namespace ProtoGame
 
 		void swapTexture(TTileType type);		
 	public:
-		Tile();
-		Tile(TTileType type);
+		Tile(ZOrder zOrder = ZOrder::Z_DEFAULT);
+		Tile(TTileType type, ZOrder zOrder = ZOrder::Z_DEFAULT);
 		virtual ~Tile();
 
 		TTileType getType() const;
