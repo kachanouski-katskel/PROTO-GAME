@@ -54,8 +54,16 @@ BaseEnemyStrategy * ProtoGame::EnemyUnit::getStrategy() const
 void ProtoGame::EnemyUnit::MoveTo(Vec2F pos, double dt)
 {
 	Vec2F distVec = pos - getPosition();
+	distVec = distVec.getNormalVec();
 	setPosition(pos);
-	setRotation(atan(distVec.mPosX / distVec.mPosY) / (acos(-1)) * 180.f + (distVec.mPosX < 0 ? 180.f : 0.f) + 90.f);
+	if (abs(distVec.mPosY) < 0.03)
+	{
+		setRotation(90.f * (distVec.mPosX > 0 ? 1 : -1));
+	}
+	else
+	{
+		setRotation(-(atan(distVec.mPosX / distVec.mPosY) / (acos(-1)) * 180.f + (distVec.mPosX < 0 ? 180.f : 0.f) + 180.f));
+	}
 }
 
 float ProtoGame::EnemyUnit::getMoveSpeed() const

@@ -49,6 +49,10 @@ namespace ProtoGame
 		Vec2<T> getNormalVec() const
 		{
 			Vec2<T> vec = *this;
+			if (len() == 0)
+			{
+				return { 0, 0 };
+			}
 			return vec / len();
 		}
 
