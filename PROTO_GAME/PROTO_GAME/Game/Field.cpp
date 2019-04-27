@@ -59,6 +59,16 @@ Vec2I Field::getPositionByCoords(Vec2F coords) const
 	return Vec2I((int)(coords.mPosY - m_fieldOffset.mPosY) / m_tileSize, (int)(coords.mPosX - m_fieldOffset.mPosX) / m_tileSize);
 }
 
+int Field::getWidth() const
+{
+	return m_fieldData[0].size();
+}
+
+float Field::getTileSize() const
+{
+	return m_tileSize;
+}
+
 void Field::highlightPosition(Vec2I position)
 {
 	m_highlightTile->setVisible(true);

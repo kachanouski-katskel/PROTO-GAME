@@ -12,17 +12,17 @@
 #include <map>
 #include <chrono>
 #include <iostream>
+#include <string>
 using namespace ProtoGame;
 
 static const float EPS = 0.00001;
 static const float MODEL_SIZE = 10.0f; 
 
-static const int hashSize = 100;
-inline int __hash(const std::pair<int, int>& pair) {
+static inline int __hash(const std::pair<int, int>& pair, int hashSize) {
 	return pair.first * hashSize + pair.second;
 }
 
-inline std::pair<int, int> __dehash(int hash) {
+static inline std::pair<int, int> __dehash(int hash, int hashSize) {
 	return std::make_pair(hash / hashSize, hash % hashSize);
 }
 
@@ -30,13 +30,20 @@ std::vector<Vec2F> getControlPoints(Vec2I start, Vec2I end, const Field* field)
 {
 	std::queue<int> q;
 	std::vector<int> p(10000, -1);
+	int hashSize = field->getWidth();
 
-	q.push(__hash({ start.mPosX, start.mPosY }));
+	q.push(__hash({ start.mPosX, start.mPosY }, hashSize));
 	std::vector<std::pair<int, int>> masks = {
 		{ -1, 0},
 		{ 1, 0},
 		{ 0, -1},
 		{ 0, 1}
+	};
+	std::vector<std::pair<int, int>> diagMasks = {
+		{ -1, -1},
+		{ 1, 1},
+		{-1, 1},
+		{1, -1}
 	};
 	std::vector<int> ans;
 	p[q.front()] = 0;
@@ -44,29 +51,62 @@ std::vector<Vec2F> getControlPoints(Vec2I start, Vec2I end, const Field* field)
 	{
 		auto curHash = q.front();
 		q.pop();
-		if (curHash == __hash({end.mPosX, end.mPosY})) {
+		if (curHash == __hash({end.mPosX, end.mPosY}, hashSize)) {
 			auto next = p[curHash];
 			while (next != 0) {
-				// std::cerr << next << std::endl;
 				ans.push_back(next);
 				next = p[next];
 			}
 			break;
 		}
+		bool useDiagMasks = true;
 		for (int i = 0; i < masks.size(); i++) {
-			auto to_ = __dehash(curHash);
+			auto to_ = __dehash(curHash, hashSize);
 			auto to = std::make_pair(to_.first + masks[i].first, to_.second + masks[i].second);
 			Tile* tile = field->getFieldTile(Vec2I(to.first, to.second));
-			auto test = TileResolver::getTilePermissions(tile).canStepOn;
-			if (test && p[__hash(to)] == -1) {
-				p[__hash(to)] = curHash;
-				q.push(__hash(to));
+			bool canStep = TileResolver::getTilePermissions(tile).canStepOn;
+			if (p[__hash(to, hashSize)] == -1) {
+				if (canStep)
+				{
+					p[__hash(to, hashSize)] = curHash;
+					q.push(__hash(to, hashSize));
+				}
+				else
+				{
+					useDiagMasks = false;
+				}
+			}
+		}
+		if (useDiagMasks)
+		{
+			for (int i = 0; i < diagMasks.size(); i++) {
+				auto to_ = __dehash(curHash, hashSize);
+				auto to = std::make_pair(to_.first + diagMasks[i].first, to_.second + diagMasks[i].second);
+				Tile * tile = field->getFieldTile(Vec2I(to.first, to.second));
+				bool canStep = TileResolver::getTilePermissions(tile).canStepOn;
+				if (canStep && p[__hash(to, hashSize)] == -1) {
+					p[__hash(to, hashSize)] = curHash;
+					q.push(__hash(to, hashSize));
+				}
 			}
 		}
 	}
+	ans.pop_back();
+	std::vector<Vec2F> ansVec;
+	std::transform(
+		ans.begin(),
+		ans.end(),
+		std::back_inserter(ansVec),
+		[hashSize, field](int hash) 
+		{
+			auto pos = __dehash(hash, hashSize);
+			Vec2F point = field->getCoordsByPosition({ pos.first, pos.second });
+			return Vec2F(point.mPosX + field->getTileSize() / 2, point.mPosY + field->getTileSize() / 2);
+		}
+	);
 
-
-	return std::vector<Vec2F>();
+		
+	return ansVec;
 }
 
 std::shared_ptr<BattleObject> getNearestEnemy(Vec2F curPosition, const ArmyState* state, const Field* field, bool onlyUnits = false)
