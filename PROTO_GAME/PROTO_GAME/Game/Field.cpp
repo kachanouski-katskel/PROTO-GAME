@@ -7,12 +7,12 @@
 
 using namespace ProtoGame;
 
-const int Field::m_tileSize = 8;
+const int Field::g_tileSize = 8;
 
 Field::Field()
 {
 	m_fieldData.resize(m_fieldSize.mPosX);
-	m_background = std::make_shared<FieldBackground>(m_tileSize * m_fieldSize.mPosY, m_tileSize * m_fieldSize.mPosX);
+	m_background = std::make_shared<FieldBackground>(g_tileSize * m_fieldSize.mPosY, g_tileSize * m_fieldSize.mPosX);
 
 	for (int i = 0, xLength = m_fieldSize.mPosX; i < xLength; i++)
 	{
@@ -52,12 +52,12 @@ Field::~Field()
 
 Vec2F Field::getCoordsByPosition(Vec2I position) const
 {
-	return Vec2F(m_fieldOffset.mPosX + position.mPosY * m_tileSize, m_fieldOffset.mPosY + position.mPosX * m_tileSize);
+	return Vec2F(m_fieldOffset.mPosX + position.mPosY * g_tileSize, m_fieldOffset.mPosY + position.mPosX * g_tileSize);
 }
 
 Vec2I Field::getPositionByCoords(Vec2F coords) const
 {
-	return Vec2I((int)(coords.mPosY - m_fieldOffset.mPosY) / m_tileSize, (int)(coords.mPosX - m_fieldOffset.mPosX) / m_tileSize);
+	return Vec2I((int)(coords.mPosY - m_fieldOffset.mPosY) / g_tileSize, (int)(coords.mPosX - m_fieldOffset.mPosX) / g_tileSize);
 }
 
 int Field::getWidth() const
@@ -65,9 +65,22 @@ int Field::getWidth() const
 	return m_fieldData[0].size();
 }
 
+int Field::getHeight() const
+{
+	return m_fieldData.size();
+}
+
 float Field::getTileSize() const
 {
-	return m_tileSize;
+	return g_tileSize;
+}
+
+bool Field::isInField(Vec2I position) const
+{
+	return position.mPosX >= 0
+		&& position.mPosY >= 0
+		&& position.mPosX <= getHeight()
+		&& position.mPosY <= getWidth();
 }
 
 void Field::highlightPosition(Vec2I position)

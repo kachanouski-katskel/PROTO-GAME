@@ -118,7 +118,7 @@ std::vector<Vec2F> getControlPoints(Vec2I start, Vec2I end, const Field* field)
 		{
 			auto pos = __dehash(hash, hashSize);
 			Vec2F point = field->getCoordsByPosition({ pos.first, pos.second });
-			return Vec2F(point.mPosX + field->getTileSize() / 2, point.mPosY + field->getTileSize() / 2);
+			return Vec2F(point.mPosX + Field::g_tileSize / 2, point.mPosY + Field::g_tileSize / 2);
 		}
 	);
 
@@ -225,14 +225,15 @@ void SimpleCloudExpansionStrategy::MakeMove(CloudObject* object, const ArmyState
 	}	
 	bool found = false;
 	int counter = 0;
-	while (!found && counter < 11)
+	while (!found && counter < 15)
 	{
 		float angle = M_PI * (1.0f + getCloudProp());
 		Vec2F dist = (state->getBastion()->getPosition() - object->getPosition()).getNormalVec();
-		Vec2F new_ = dist.rotate(angle) * object->getMaxRadius();
-		Vec2I position = field->getPositionByCoords(object->getPosition() + new_);
-		if (TileResolver::getTilePermissions(field->getFieldTile(position)).canStepOn
-			|| counter == 10)
+		Vec2F new_ = dist.rotate(angle);
+		Vec2F new2 = new_ * object->getMaxDiam() / 2 * Field::g_tileSize;
+		Vec2I position = field->getPositionByCoords(object->getPosition() + new2);
+		if (field->isInField(position) && (TileResolver::getTilePermissions(field->getFieldTile(position)).canStepOn
+			|| counter >= 10))
 		{
 			found = true;
 			object->ExpandCloud(field->getCoordsByPosition(position));

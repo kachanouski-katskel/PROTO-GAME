@@ -14,10 +14,10 @@ CloudObject::CloudObject(ICloudAddable* cloudAddable, Vec2F position):
 	m_hp = 100.0f;
 	m_strategy = std::make_shared<SimpleCloudExpansionStrategy>();
 	setAlpha(0.5f);
-	m_startRadius = 20.0f;
-	m_maxRadius = 30.0f;
-	m_baseMoveTime = 2.0f;
-	setInitialScale(m_startRadius * Field::m_tileSize / getSize().mPosX);
+	m_startDiam = 14.0f;
+	m_maxDiam = 21.0f;
+	m_baseMoveTime = 10.0f;
+	setInitialScale(m_startDiam * Field::g_tileSize / getSize().mPosX);
 	setScale(m_initialScale);
 }
 
@@ -32,17 +32,18 @@ void CloudObject::setInitialScale(float scale)
 
 bool CloudObject::CanUpgrade() const
 {
-	return m_currentMoveTime >= getUpgradeTime();
+	return m_currentMoveTime >= getUpgradeTime()
+		&& m_ExpansionLevel <= 3;
 }
 
-float ProtoGame::CloudObject::getMaxRadius() const
+float ProtoGame::CloudObject::getMaxDiam() const
 {
-	return m_maxRadius;
+	return m_maxDiam;
 }
 
 float CloudObject::getUpgradeTime() const
 {
-	return powf(m_ExpansionLevel, 3.0f) * m_baseMoveTime;
+	return powf(m_ExpansionLevel, 1.5f) * m_baseMoveTime;
 }
 
 void CloudObject::ExpandCloud(Vec2F posToExpand)
@@ -60,7 +61,7 @@ void CloudObject::onUpdate(double dt)
 		return;
 	}
 	float tween = m_currentMoveTime / getUpgradeTime();
-	float scale = 1.0f + tween * (m_maxRadius / m_startRadius - 1);
+	float scale = 1.0f + tween * (m_maxDiam / m_startDiam - 1);
 	setScale(m_initialScale * scale);
 }
 

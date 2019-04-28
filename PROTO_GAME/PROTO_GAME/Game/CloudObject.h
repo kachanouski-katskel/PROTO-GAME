@@ -11,8 +11,8 @@ namespace ProtoGame
 		public BattleObject
 	{
 	private:
-		float m_maxRadius = 0.0f;
-		float m_startRadius = 0.0f;
+		float m_maxDiam = 0.0f;
+		float m_startDiam = 0.0f;
 
 		int m_ExpansionLevel = 1;
 		float m_baseMoveTime = 0.0f;
@@ -29,7 +29,7 @@ namespace ProtoGame
 		~CloudObject();
 
 		bool CanUpgrade() const;
-		float getMaxRadius() const;
+		float getMaxDiam() const;
 		virtual float getUpgradeTime() const;
 		virtual void ExpandCloud(Vec2F posToExpand);
 

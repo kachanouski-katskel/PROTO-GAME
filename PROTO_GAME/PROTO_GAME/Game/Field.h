@@ -38,9 +38,11 @@ namespace ProtoGame
 		Vec2F getCoordsByPosition(Vec2I position) const;
 		Vec2I getPositionByCoords(Vec2F coords) const;
 		int getWidth() const;
+		int getHeight() const;
 		float getTileSize() const;
+		bool isInField(Vec2I position) const;
 
-		static const int m_tileSize;
+		static const int g_tileSize;
 
 		void highlightPosition(Vec2I position);
 		Tile* getFieldTile(Vec2I position) const;
