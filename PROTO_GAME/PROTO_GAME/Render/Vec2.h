@@ -4,6 +4,8 @@
 
 namespace ProtoGame
 {
+	static const float M_PI = acos(-1);
+
 	template<typename T>
 	struct Vec2
 	{

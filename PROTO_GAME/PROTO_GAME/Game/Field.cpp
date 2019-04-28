@@ -7,6 +7,7 @@
 
 using namespace ProtoGame;
 
+const int Field::m_tileSize = 8;
 
 Field::Field()
 {

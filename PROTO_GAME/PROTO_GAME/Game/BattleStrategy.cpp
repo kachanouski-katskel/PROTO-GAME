@@ -5,6 +5,8 @@
 #include "Tower.h"
 #include "Enemy.h"
 #include "TIleResolver.h"
+#include "CloudObject.h"
+#include "Random.h"
 #include <algorithm>
 #include <utility>
 #include <queue>
@@ -24,6 +26,21 @@ static inline int __hash(const std::pair<int, int>& pair, int hashSize) {
 
 static inline std::pair<int, int> __dehash(int hash, int hashSize) {
 	return std::make_pair(hash / hashSize, hash % hashSize);
+}
+
+static float getCloudProp()
+{
+	int hand = uniformRand(0, 1);
+	int choice = uniformRand(0, 1275);
+	int cur = 0;
+	int curSum = 0;
+	while (curSum < choice)
+	{
+		cur++;
+		curSum += cur;
+	}
+	float offset = 1.0 * cur / 50;
+	return offset * (hand ? -1 : 1);
 }
 
 std::vector<Vec2F> getControlPoints(Vec2I start, Vec2I end, const Field* field)
@@ -202,4 +219,27 @@ void EnemyTowerStrategy::MakeMove(Tower * tower, const ArmyState * state, const 
 
 void SimpleCloudExpansionStrategy::MakeMove(CloudObject* object, const ArmyState* state, const Field* field, double dt)
 {
+	if (!object->CanUpgrade())
+	{
+		return;
+	}	
+	bool found = false;
+	int counter = 0;
+	while (!found && counter < 11)
+	{
+		float angle = M_PI * (1.0f + getCloudProp());
+		Vec2F dist = (state->getBastion()->getPosition() - object->getPosition()).getNormalVec();
+		Vec2F new_ = dist.rotate(angle) * object->getMaxRadius();
+		Vec2I position = field->getPositionByCoords(object->getPosition() + new_);
+		if (TileResolver::getTilePermissions(field->getFieldTile(position)).canStepOn
+			|| counter == 10)
+		{
+			found = true;
+			object->ExpandCloud(field->getCoordsByPosition(position));
+		}
+		else
+		{
+			counter++;
+		}
+	}
 }

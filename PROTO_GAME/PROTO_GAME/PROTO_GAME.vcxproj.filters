@@ -134,5 +134,8 @@
     <ClInclude Include="Game\TIleResolver.h">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Random.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

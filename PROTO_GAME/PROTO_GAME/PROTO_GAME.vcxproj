@@ -194,6 +194,7 @@
     <ClInclude Include="Game\GameInterfaces.h" />
     <ClInclude Include="Game\HPBar.h" />
     <ClInclude Include="Game\HpChecker.h" />
+    <ClInclude Include="Game\Random.h" />
     <ClInclude Include="Game\Tile.h" />
     <ClInclude Include="Game\TIleResolver.h" />
     <ClInclude Include="Game\Tower.h" />

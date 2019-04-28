@@ -29,11 +29,9 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 	}
 	else
 	{
-		std::shared_ptr<CloudObject> cloud = std::make_shared<CloudObject>(this);
 		Vec2I pos = Vec2I(40, 60);
-		Vec2F tPos = game->getField()->getCoordsByPosition(pos);
+		std::shared_ptr<CloudObject> cloud = std::make_shared<CloudObject>(this, game->getField()->getCoordsByPosition(pos));
 		cloud->setFieldPosition(pos);
-		cloud->setPosition(tPos);
 		m_clouds.push_back(cloud);
 	}
 	m_bastion->setFieldPosition(bastionPos);
@@ -127,13 +125,16 @@ void ArmyState::onUpdate(double dt)
 		auto strategy = unit->getStrategy();
 		strategy->MakeMove(unit.get(), m_game->getOppositeArmy(this), m_game->getField(), dt);
 	}
-	for (auto& cloud : m_clouds)
+	VecShared<CloudObject> cloudsToUpdate;
+	std::copy(m_clouds.begin(), m_clouds.end(), std::back_inserter(cloudsToUpdate));
+	for (auto& cloud : cloudsToUpdate)
 	{
 		if (cloud->isDead())
 		{
 			cloudsToDelete.push_back(cloud.get());
 			continue;
 		}
+		cloud->onUpdate(dt);
 		auto strategy = cloud->getStrategy();
 		strategy->MakeMove(cloud.get(), m_game->getOppositeArmy(this), m_game->getField(), dt);
 	}
