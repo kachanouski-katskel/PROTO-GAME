@@ -1,5 +1,6 @@
 #pragma once
 #include "Bastion.h"
+#include "ComboChecker.h"
 #include <vector>
 
 namespace ProtoGame
@@ -18,6 +19,7 @@ namespace ProtoGame
 		std::shared_ptr<ArmyState> m_userArmy;
 		std::shared_ptr<ArmyState> m_enemyArmy;
 
+		std::unique_ptr<ComboChecker> m_comboChecker;
 		Field* m_field;
 	public:
 		GameBase();

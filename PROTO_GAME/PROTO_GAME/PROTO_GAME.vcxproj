@@ -169,6 +169,7 @@
     <ClCompile Include="Game\BattleObject.cpp" />
     <ClCompile Include="Game\BattleStrategy.cpp" />
     <ClCompile Include="Game\CloudObject.cpp" />
+    <ClCompile Include="Game\ComboChecker.cpp" />
     <ClCompile Include="Game\Enemy.cpp" />
     <ClCompile Include="Game\Field.cpp" />
     <ClCompile Include="Game\GameBase.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Game\BattleObject.h" />
     <ClInclude Include="Game\BattleStrategy.h" />
     <ClInclude Include="Game\CloudObject.h" />
+    <ClInclude Include="Game\ComboChecker.h" />
     <ClInclude Include="Game\Enemy.h" />
     <ClInclude Include="Game\Field.h" />
     <ClInclude Include="Game\GameBase.h" />

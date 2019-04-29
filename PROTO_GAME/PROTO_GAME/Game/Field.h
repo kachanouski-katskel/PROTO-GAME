@@ -46,6 +46,7 @@ namespace ProtoGame
 
 		void highlightPosition(Vec2I position);
 		Tile* getFieldTile(Vec2I position) const;
-		void placeBuildingBlock(Vec2I position);
+		bool placeBuildingBlock(Vec2I position);
+		void placeBigTile(std::shared_ptr<Tile> tile, Vec2I position, int width, int height);
 	};
 }

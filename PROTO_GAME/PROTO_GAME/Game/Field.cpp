@@ -103,13 +103,27 @@ Tile* Field::getFieldTile(Vec2I position) const
 	return m_fieldData[position.mPosX][position.mPosY].get();
 }
 
-void Field::placeBuildingBlock(Vec2I position)
+bool Field::placeBuildingBlock(Vec2I position)
 {
 	std::shared_ptr<Tile> tile = m_fieldData[position.mPosX][position.mPosY];
 	if (TileResolver::getTilePermissions(tile.get()).canBuildOn)
 	{
-		addTileToField(TTileType::TT_TOWER, position);
+		addTileToField(TTileType::TT_BUILDING_BLOCK, position);
+		return true;
 		//m_fieldData[position.mPosX][position.mPosY] = std::make_shared<Tile>(TTileType::TT_TOWER);
+	}
+	return false;
+}
+
+void ProtoGame::Field::placeBigTile(std::shared_ptr<Tile> tile, Vec2I position, int width, int height)
+{
+	for (int i = position.mPosX; i < position.mPosX + width; i++)
+	{
+		for (int j = position.mPosY; j < position.mPosY + height; j++)
+		{
+			m_fieldData[i][j].reset();
+			m_fieldData[i][j] = tile;
+		}
 	}
 }
 

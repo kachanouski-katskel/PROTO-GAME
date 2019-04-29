@@ -75,6 +75,9 @@
     <ClCompile Include="Game\TileResolver.cpp">
       <Filter>Файлы ресурсов\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ComboChecker.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Render.h">
@@ -135,6 +138,9 @@
       <Filter>Файлы ресурсов\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Random.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ComboChecker.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

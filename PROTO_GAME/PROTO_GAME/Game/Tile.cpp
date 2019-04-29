@@ -35,6 +35,10 @@ void ProtoGame::Tile::swapTexture(TTileType type)
 	}
 	else if (type == TTileType::TT_TOWER)
 	{
+		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("tower"));
+	}
+	else if (type == TTileType::TT_BUILDING_BLOCK)
+	{
 		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("wall"));
 	}
 	else if (type == TTileType::TT_CLOUD)

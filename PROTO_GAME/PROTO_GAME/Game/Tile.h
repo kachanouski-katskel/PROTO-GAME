@@ -7,6 +7,7 @@ namespace ProtoGame
 	{
 		TT_DEFAULT,
 		TT_TOWER,
+		TT_BUILDING_BLOCK,
 		TT_WALL,
 		TT_WATER,
 		TT_ENEMY,
