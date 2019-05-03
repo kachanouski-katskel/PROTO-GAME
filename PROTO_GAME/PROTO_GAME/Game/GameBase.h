@@ -36,6 +36,7 @@ namespace ProtoGame
 		bool isFinished() const;
 		void setFinished(bool value);
 
+		Vec2F getFieldSize() const;
 
 		const ArmyState* getOppositeArmy(const ArmyState* state) const;
 		Field* getField() const;

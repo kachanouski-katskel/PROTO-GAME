@@ -57,7 +57,10 @@ void GameBase::MouseUp(int x, int y)
 void ProtoGame::GameBase::MouseMoved(int x, int y)
 {
 	Vec2I pos = m_field->getPositionByCoords(Vec2F(x, y));
-	m_field->highlightPosition(pos);
+	if (pos.mPosY >= 0 && pos.mPosY < m_field->getWidth() && pos.mPosX >= 0 && pos.mPosX < m_field->getHeight())
+	{
+		m_field->highlightPosition(pos);
+	}
 }
 
 void GameBase::Update(double dt)
@@ -79,4 +82,9 @@ bool ProtoGame::GameBase::isFinished() const
 void ProtoGame::GameBase::setFinished(bool value)
 {
 	m_finished = value;
+}
+
+Vec2F ProtoGame::GameBase::getFieldSize() const
+{
+	return {m_field->getWidth() * m_field->getTileSize(), m_field->getHeight() * m_field->getTileSize()};
 }
