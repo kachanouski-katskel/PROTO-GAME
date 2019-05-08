@@ -156,7 +156,7 @@ std::shared_ptr<BattleObject> getNearestEnemy(Vec2F curPosition, const ArmyState
 
 void BaseEnemyMoveStrategy::MakeMove(EnemyUnit * unit, const ArmyState * state, const Field* field, double dt)
 {
-	auto enemyInfo = getNearestEnemy(unit->getPosition(), state, field, true);
+	auto enemyInfo = getNearestEnemy(unit->getPosition(), state, field, false);
 	if (!enemyInfo)
 		return;
 
@@ -210,7 +210,7 @@ void BaseEnemyMoveStrategy::MakeMove(EnemyUnit * unit, const ArmyState * state, 
 
 void EnemyTowerStrategy::MakeMove(Tower * tower, const ArmyState * state, const Field * field, double dt)
 {
-	auto enemyInfo = getNearestEnemy(tower->getPosition(), state, field, true);
+	auto enemyInfo = getNearestEnemy(tower->getPosition(), state, field, false);
 	if (enemyInfo)
 	{
 		tower->TryAttack(enemyInfo);
