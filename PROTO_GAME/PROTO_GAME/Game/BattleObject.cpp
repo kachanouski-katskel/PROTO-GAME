@@ -12,3 +12,8 @@ void ProtoGame::BattleObject::setPosition(const Vec2F & position)
 	ProtoGame::Tile::setPosition(position);
 	setHpBarPosition({ position.mPosX, position.mPosY });
 }
+
+float BattleObject::getAttackPower() const
+{
+	return m_attackPower * getAttackScale();
+}

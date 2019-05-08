@@ -30,7 +30,7 @@ void EnemyUnit::TryAttack(HPChecker* checker)
 {
 	if (m_canAttackNow)
 	{
-		checker->removeHP(m_attackPower);
+		checker->removeHP(getAttackPower());
 		m_attackTimer = 0.0f;
 		m_canAttackNow = false;
 	}

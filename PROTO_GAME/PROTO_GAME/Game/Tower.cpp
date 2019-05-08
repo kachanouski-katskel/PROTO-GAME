@@ -31,7 +31,7 @@ void Tower::TryAttack(std::shared_ptr<BattleObject> target)
 	{
 		if ((target->getPosition() - getPosition()).len() < m_attackRadius)
 		{
-			std::shared_ptr<TowerBall> ball = std::make_shared<TowerBall>(target, m_attackPower, getPosition());
+			std::shared_ptr<TowerBall> ball = std::make_shared<TowerBall>(target, getAttackPower(), getPosition());
 			assert(m_towerBallAddable != nullptr);
 			if (m_towerBallAddable != nullptr)
 			{

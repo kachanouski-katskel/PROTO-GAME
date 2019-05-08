@@ -21,7 +21,7 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 	if (!isEnemy)
 	{
 		std::shared_ptr<Tower> tower = std::make_shared<Tower>(this);
-		Vec2I towerPos = Vec2I(50, 75);
+		Vec2I towerPos = Vec2I(60, 55);
 		Vec2F tPos = game->getField()->getCoordsByPosition(towerPos);
 		tower->setFieldPosition(towerPos);
 		tower->setPosition(tPos);
@@ -29,7 +29,7 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 	}
 	else
 	{
-		Vec2I pos = Vec2I(70, 80);
+		Vec2I pos = Vec2I(60, 60);
 		std::shared_ptr<CloudObject> cloud = std::make_shared<CloudObject>(this, game->getField()->getCoordsByPosition(pos));
 		cloud->setFieldPosition(pos);
 		m_clouds.push_back(cloud);
@@ -94,6 +94,24 @@ void ArmyState::onUpdate(double dt)
 	std::vector<EnemyUnit*> unitsToDelete;
 	std::vector<TowerBall*> ballsToDelete;
 	std::vector<CloudObject*> cloudsToDelete;
+	for (auto& unit : m_units)
+	{
+		unit->resetScales();
+		for (auto& cloud : m_clouds)
+		{
+			if (cloud->isDead())
+			{
+				continue;
+			}
+			Vec2F diff = cloud->getPosition() - unit->getPosition();
+			if (diff.len() > cloud->getCurrRadius()) {
+				continue;
+			}
+			unit->scaleDefence(cloud->getDefenceScale());
+			unit->scaleAttack(cloud->getAttackScale());
+		}
+	}
+
 	for (const auto& ball : m_towerBalls)
 	{
 		if (ball->getIsDead())

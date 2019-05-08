@@ -20,8 +20,7 @@ namespace ProtoGame
 		float m_attackTimer = 0.0f;
 		bool m_canAttackNow = true;
 
-		float m_attackRadius = 0.0f;
-		float m_attackPower = 0.0f;		
+		float m_attackRadius = 0.0f;	
 
 		ITowerBallAddable* m_towerBallAddable = nullptr;
 

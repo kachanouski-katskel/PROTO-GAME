@@ -1,5 +1,6 @@
 #pragma once
 #include "HPBar.h"
+#include <iostream>
 
 namespace ProtoGame
 {
@@ -7,6 +8,9 @@ namespace ProtoGame
 	{
 	protected:
 		float m_hp = 0.0f;
+		float m_defenceScale = 1.0f;
+		float m_attackScale = 1.0f;
+
 		HPBar m_hpBar;
 	public:
 		HPChecker()
@@ -36,7 +40,8 @@ namespace ProtoGame
 		}
 		virtual void removeHP(float value)
 		{
-			m_hp -= value;
+			std::cout << "remove " << value << "real: " << value / m_defenceScale << std::endl;
+			m_hp -= value / m_defenceScale;
 			m_hpBar.setHp(m_hp);
 		}
 		virtual void setMaxHP(const float & maxHP)
@@ -54,6 +59,25 @@ namespace ProtoGame
 			m_hpBar.setPosition(position);
 		}
 
+		void resetScales()
+		{
+			m_attackScale = 1.0f;
+			m_defenceScale = 1.0f;
+		}
 
+		void scaleAttack(float scale)
+		{
+			m_attackScale *= scale;
+		}
+
+		void scaleDefence(float scale)
+		{
+			m_defenceScale *= scale;
+		}
+
+		float getAttackScale() const
+		{
+			return m_attackScale;
+		}
 	};
 }

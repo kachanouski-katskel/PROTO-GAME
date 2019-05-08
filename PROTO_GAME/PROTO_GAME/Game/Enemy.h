@@ -11,7 +11,6 @@ namespace ProtoGame
 	{
 	private:
 		std::shared_ptr<BaseEnemyStrategy> m_strategy;
-		int m_attackPower = 0;
 		float m_moveSpeed = 0.0f;
 		float m_attackRadius = 0.0f;
 
