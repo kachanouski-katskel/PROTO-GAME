@@ -29,7 +29,7 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 	}
 	else
 	{
-		Vec2I pos = Vec2I(40, 60);
+		Vec2I pos = Vec2I(70, 80);
 		std::shared_ptr<CloudObject> cloud = std::make_shared<CloudObject>(this, game->getField()->getCoordsByPosition(pos));
 		cloud->setFieldPosition(pos);
 		m_clouds.push_back(cloud);

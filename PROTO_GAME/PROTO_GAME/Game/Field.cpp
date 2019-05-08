@@ -79,8 +79,8 @@ bool Field::isInField(Vec2I position) const
 {
 	return position.mPosX >= 0
 		&& position.mPosY >= 0
-		&& position.mPosX <= getHeight()
-		&& position.mPosY <= getWidth();
+		&& position.mPosX < getHeight()
+		&& position.mPosY < getWidth();
 }
 
 void Field::highlightPosition(Vec2I position)
