@@ -7,6 +7,7 @@ namespace ProtoGame
 	class Tower;
 	class Field;
 	class CloudObject;
+	class Building;
 	
 	class BaseEnemyStrategy
 	{
@@ -24,18 +25,25 @@ namespace ProtoGame
 		void MakeMove(EnemyUnit* unit, const ArmyState* state, const Field* field, double dt) override;
 	};
 
-	class BaseTowerStrategy
+	class BaseBuildingStrategy
 	{
 	public:
-		virtual void MakeMove(Tower* tower, const ArmyState* state, const Field* field, double dt) = 0;
-		virtual ~BaseTowerStrategy() {};
+		virtual void MakeMove(Building* tower, const ArmyState* state, const Field* field, double dt) = 0;
+		virtual ~BaseBuildingStrategy() {};
 	};
 
 	class EnemyTowerStrategy:
-		public BaseTowerStrategy
+		public BaseBuildingStrategy
 	{
 	public:
-		void MakeMove(Tower* tower, const ArmyState* state, const Field* field, double dt) override;
+		void MakeMove(Building* tower, const ArmyState* state, const Field* field, double dt) override;
+	};
+
+	class BarracksStrategy :
+		public BaseBuildingStrategy
+	{
+	public:
+		void MakeMove(Building* tower, const ArmyState* state, const Field* field, double dt) override;
 	};
 
 	class BaseCloudExpansionStrategy

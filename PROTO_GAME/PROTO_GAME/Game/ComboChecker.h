@@ -1,11 +1,14 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "Tower.h"
+#include "Building.h"
 #include "../Render/Vec2.h"
 
 namespace ProtoGame
 {
+	class ArmyState;
+	class Field;
+
 	class ComboChecker
 	{
 	public:
@@ -28,10 +31,11 @@ namespace ProtoGame
 
 		void initCombos();
 		bool applyMask(int iShift, int jShift, Vec2I lastAddPos, Combo combo) const;
-		void addOnField(int iShift, int jShift, Vec2I lastAddPos, Combo combo, std::shared_ptr<Tower>& tower) const;
+		void addOnField(int iShift, int jShift, Vec2I lastAddPos, Combo combo, std::shared_ptr<Building>& building) const;
+		std::shared_ptr<Building> createBuilding(Combo combo, ArmyState* armyState) const;
 	public:
 		ComboChecker(Field * field);
 
-		std::shared_ptr<Tower> performCheck(Vec2I lastAddPosition, ITowerBallAddable* towerBallAddable) const;
+		std::shared_ptr<Building> performCheck(Vec2I lastAddPosition, ArmyState* towerBallAddable) const;
 	};
 }

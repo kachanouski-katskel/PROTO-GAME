@@ -45,7 +45,7 @@ void GameBase::Init()
 	m_userArmy = std::make_shared<ArmyState>(this, false);
 	m_enemyArmy = std::make_shared<ArmyState>(this, true);
 	m_userGoldController = std::make_shared<GoldController>();
-	m_buildCost = 20;
+	m_buildCost = 1; // 20
 }
 
 void GameBase::MouseDown(int x, int y)
@@ -63,10 +63,10 @@ void GameBase::MouseUp(int x, int y)
 	if (placed)
 	{
 		m_userGoldController->useGold(m_buildCost);
-		std::shared_ptr<Tower> tower = m_comboChecker->performCheck(pos, m_userArmy.get());
+		std::shared_ptr<Building> tower = m_comboChecker->performCheck(pos, m_userArmy.get());
 		if (tower != nullptr)
 		{
-			m_userArmy->AddTower(tower);
+			m_userArmy->AddBuilding(tower);
 		}
 	}
 }

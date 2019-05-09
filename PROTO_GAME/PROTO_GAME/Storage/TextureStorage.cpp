@@ -22,6 +22,7 @@ void ProtoGame::TextureStorage::loadTextures()
 	m_texturesMap["enemy_unit"].loadFromFile("Resources/Textures/enemy_unit.png");
 	m_texturesMap["cloud"].loadFromFile("Resources/Textures/cloud3.png");
 	m_texturesMap["tower"].loadFromFile("Resources/Textures/tower.png");
+	m_texturesMap["barracks"].loadFromFile("Resources/Textures/barracks.png");
 }
 
 void ProtoGame::TextureStorage::releaseTextures()

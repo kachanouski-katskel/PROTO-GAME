@@ -1,20 +1,18 @@
 #pragma once
 #include "../Game/BattleObject.h"
 #include "../Game/BattleStrategy.h"
+#include "../Game/Building.h"
 
 #include <memory>
 
 namespace ProtoGame
 {
 	class ITowerBallAddable;
-	class BaseTowerStrategy;
+	class BaseBuildingStrategy;
 
 	class Tower : 
-		public BattleObject
+		public Building
 	{
-	private:
-		std::shared_ptr<BaseTowerStrategy> m_strategy;
-
 	protected:
 		float m_attackDelay = 0.0f;
 		float m_attackTimer = 0.0f;
@@ -29,10 +27,8 @@ namespace ProtoGame
 		virtual ~Tower();
 
 		virtual void TryAttack(std::shared_ptr<BattleObject> target);
-		virtual void Update(double dt);
+		virtual void Update(double dt) override;
 		int getGoldCost() const override;
-
-		BaseTowerStrategy* getStrategy() const;
 	};
 
 }

@@ -6,6 +6,8 @@
 #include "Enemy.h"
 #include "TIleResolver.h"
 #include "CloudObject.h"
+#include "Building.h"
+#include "Barracks.h"
 #include "Random.h"
 #include <algorithm>
 #include <utility>
@@ -135,7 +137,7 @@ std::shared_ptr<BattleObject> getNearestEnemy(Vec2F curPosition, const ArmyState
 	}
 	if (!onlyUnits)
 	{
-		for (auto& tower : state->getTowers())
+		for (auto& tower : state->getBuildings())
 		{
 			possibles.emplace_back(tower);
 		}
@@ -208,13 +210,18 @@ void BaseEnemyMoveStrategy::MakeMove(EnemyUnit * unit, const ArmyState * state, 
 	unit->TryAttack(enemyInfo.get());
 }
 
-void EnemyTowerStrategy::MakeMove(Tower * tower, const ArmyState * state, const Field * field, double dt)
+void EnemyTowerStrategy::MakeMove(Building * tower, const ArmyState * state, const Field * field, double dt)
 {
 	auto enemyInfo = getNearestEnemy(tower->getPosition(), state, field, false);
 	if (enemyInfo)
 	{
-		tower->TryAttack(enemyInfo);
+		dynamic_cast<Tower*>(tower)->TryAttack(enemyInfo);
 	}
+}
+
+void ProtoGame::BarracksStrategy::MakeMove(Building * tower, const ArmyState * state, const Field * field, double dt)
+{
+	dynamic_cast<Barracks*>(tower)->TryCreateUnit();
 }
 
 void SimpleCloudExpansionStrategy::MakeMove(CloudObject* object, const ArmyState* state, const Field* field, double dt)

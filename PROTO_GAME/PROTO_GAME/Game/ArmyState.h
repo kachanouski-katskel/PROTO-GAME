@@ -8,7 +8,7 @@ namespace ProtoGame
 	template<class T>
 	using VecShared = std::vector<std::shared_ptr<T>>;
 
-	class Tower;
+	class Building;
 	class EnemyUnit;
 	class Bastion;
 	class GameBase;
@@ -23,7 +23,7 @@ namespace ProtoGame
 	{
 	private:
 		std::vector<std::shared_ptr<EnemyUnit>> m_units;
-		std::vector<std::shared_ptr<Tower>> m_towers;
+		std::vector<std::shared_ptr<Building>> m_buildings;
 		std::vector<std::shared_ptr<TowerBall>> m_towerBalls;
 		std::vector<std::shared_ptr<CloudObject>> m_clouds;
 		std::shared_ptr<Bastion> m_bastion;
@@ -36,13 +36,13 @@ namespace ProtoGame
 		virtual void AddUnit(std::shared_ptr<EnemyUnit> unit) override;
 		virtual void AddBall(std::shared_ptr<TowerBall> ball) override;
 		virtual void AddCloud(std::shared_ptr<CloudObject> cloud) override;
-		void AddTower(std::shared_ptr<Tower> tower);
+		void AddBuilding(std::shared_ptr<Building> tower);
 
 		virtual void onUpdate(double dt);
 		virtual void onBattleObjectDead(const BattleObject* object);
 
 		const VecShared<EnemyUnit>& getUnits() const;
-		const VecShared<Tower>& getTowers() const;
+		const VecShared<Building>& getBuildings() const;
 		const VecShared<CloudObject> getClouds() const;
 		std::shared_ptr<Bastion> getBastion() const;
 	};

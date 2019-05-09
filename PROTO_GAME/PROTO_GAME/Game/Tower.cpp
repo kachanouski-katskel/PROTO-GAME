@@ -6,8 +6,8 @@
 
 using namespace ProtoGame;
 
-Tower::Tower(ITowerBallAddable* ballAddable) : 
-	BattleObject(TTileType::TT_TOWER),
+Tower::Tower(ITowerBallAddable* ballAddable) :
+	Building(TTileType::TT_TOWER),
 	m_towerBallAddable(ballAddable)
 {
 	setVisible(true);
@@ -56,9 +56,4 @@ void Tower::Update(double dt)
 int Tower::getGoldCost() const
 {
 	return 100;
-}
-
-BaseTowerStrategy * Tower::getStrategy() const
-{
-	return m_strategy.get();
 }

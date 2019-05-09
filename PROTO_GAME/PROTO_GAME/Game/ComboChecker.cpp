@@ -1,5 +1,10 @@
 #include "ComboChecker.h"
+#include "ArmyState.h"
 #include "Field.h"
+#include "Barracks.h"
+#include "Tower.h"
+
+#include <cassert>
 
 namespace ProtoGame
 {
@@ -12,6 +17,18 @@ namespace ProtoGame
 				ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE,
 				ComboBlockType::CBT_SIMPLE, ComboBlockType::CBT_ANY,	ComboBlockType::CBT_SIMPLE,
 				ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE
+				}
+			}
+		);
+
+		m_combosToCheck.emplace_back(
+			Combo {
+				TTileType::TT_BARRACKS, 4,
+				{
+				ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE,
+				ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_ANY,	ComboBlockType::CBT_ANY,	ComboBlockType::CBT_SIMPLE,
+				ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_ANY,	ComboBlockType::CBT_ANY,	ComboBlockType::CBT_SIMPLE,
+				ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE,	ComboBlockType::CBT_SIMPLE
 				}
 			}
 		);
@@ -49,14 +66,32 @@ namespace ProtoGame
 		return true;
 	}
 
-	void ComboChecker::addOnField(int iShift, int jShift, Vec2I lastAddPos, Combo combo, std::shared_ptr<Tower>& tower) const
+	void ComboChecker::addOnField(int iShift, int jShift, Vec2I lastAddPos, Combo combo, std::shared_ptr<Building>& building) const
 	{
 		Vec2I position = lastAddPos - Vec2I(iShift, jShift);
 		int cols = combo.size;
 		int rows = combo.comboShape.size() / combo.size;
 
-		tower->setPosition(m_field->getCoordsByPosition(position));
-		m_field->placeBigTile(tower, position, cols, rows);
+		building->setPosition(m_field->getCoordsByPosition(position));
+		m_field->placeBigTile(building, position, cols, rows);
+	}
+
+	std::shared_ptr<Building> ComboChecker::createBuilding(Combo combo, ArmyState* armyState) const
+	{
+		std::shared_ptr<Building> result;
+		if (combo.comboResult == TTileType::TT_BARRACKS)
+		{
+			result = std::make_shared<Barracks>(armyState);
+		}
+		else if (combo.comboResult == TTileType::TT_TOWER)
+		{
+			result = std::make_shared<Tower>(armyState);
+		}
+		else
+		{
+			assert(false);
+		}
+		return result;
 	}
 
 	ComboChecker::ComboChecker(Field * field)
@@ -65,7 +100,7 @@ namespace ProtoGame
 		initCombos();
 	}
 
-	std::shared_ptr<Tower> ComboChecker::performCheck(Vec2I lastAddPosition, ITowerBallAddable* towerBallAddable) const
+	std::shared_ptr<Building> ComboChecker::performCheck(Vec2I lastAddPosition, ArmyState* armyState) const
 	{
 		for (Combo combo : m_combosToCheck)
 		{
@@ -79,9 +114,10 @@ namespace ProtoGame
 					bool applied = applyMask(i, j, lastAddPosition, combo);
 					if (applied)
 					{
-						std::shared_ptr<Tower> tower = std::make_shared<Tower>(towerBallAddable);
-						addOnField(i, j, lastAddPosition, combo, tower);
-						return tower;
+
+						std::shared_ptr<Building> building = createBuilding(combo, armyState);
+						addOnField(i, j, lastAddPosition, combo, building);
+						return building;
 					}
 				}
 			}

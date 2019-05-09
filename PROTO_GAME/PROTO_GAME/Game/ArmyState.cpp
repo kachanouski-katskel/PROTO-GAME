@@ -25,7 +25,7 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 		Vec2F tPos = game->getField()->getCoordsByPosition(towerPos);
 		tower->setFieldPosition(towerPos);
 		tower->setPosition(tPos);
-		m_towers.push_back(tower);
+		m_buildings.push_back(tower);
 	}
 	else
 	{
@@ -57,9 +57,9 @@ void ArmyState::AddCloud(std::shared_ptr<CloudObject> cloud)
 	m_clouds.push_back(std::move(cloud));
 }
 
-void ArmyState::AddTower(std::shared_ptr<Tower> tower)
+void ArmyState::AddBuilding(std::shared_ptr<Building> tower)
 {
-	m_towers.push_back(std::move(tower));
+	m_buildings.push_back(std::move(tower));
 }
 
 const VecShared<EnemyUnit>& ArmyState::getUnits() const
@@ -67,9 +67,9 @@ const VecShared<EnemyUnit>& ArmyState::getUnits() const
 	return m_units;
 }
 
-const VecShared<Tower>& ArmyState::getTowers() const
+const VecShared<Building>& ArmyState::getBuildings() const
 {
-	return m_towers;
+	return m_buildings;
 }
 
 const VecShared<CloudObject> ProtoGame::ArmyState::getClouds() const
@@ -90,7 +90,7 @@ void ArmyState::onUpdate(double dt)
 	}
 	m_bastion->onUpdate(dt);
 
-	std::vector<Tower*> towersToDelete;
+	std::vector<Building*> buildingsToDelete;
 	std::vector<EnemyUnit*> unitsToDelete;
 	std::vector<TowerBall*> ballsToDelete;
 	std::vector<CloudObject*> cloudsToDelete;
@@ -121,11 +121,11 @@ void ArmyState::onUpdate(double dt)
 		}
 		ball->Update(dt);
 	}
-	for (const auto& tower : m_towers)
+	for (const auto& tower : m_buildings)
 	{
 		if (tower->isDead())
 		{
-			towersToDelete.push_back(tower.get());
+			buildingsToDelete.push_back(tower.get());
 			onBattleObjectDead(tower.get());
 			continue;
 		}
@@ -159,13 +159,13 @@ void ArmyState::onUpdate(double dt)
 		auto strategy = cloud->getStrategy();
 		strategy->MakeMove(cloud.get(), m_game->getOppositeArmy(this), m_game->getField(), dt);
 	}
-	m_towers.erase(
-		std::remove_if(m_towers.begin(), m_towers.end(), 
-			[towersToDelete](const auto& tower)
+	m_buildings.erase(
+		std::remove_if(m_buildings.begin(), m_buildings.end(), 
+			[buildingsToDelete](const auto& tower)
 			{
-				return std::find(towersToDelete.begin(), towersToDelete.end(), tower.get()) != towersToDelete.end();
+				return std::find(buildingsToDelete.begin(), buildingsToDelete.end(), tower.get()) != buildingsToDelete.end();
 			}), 
-		m_towers.end()
+		m_buildings.end()
 	);
 
 	m_units.erase(
