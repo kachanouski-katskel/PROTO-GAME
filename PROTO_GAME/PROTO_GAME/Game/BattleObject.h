@@ -17,5 +17,6 @@ namespace ProtoGame
 
 		virtual void setPosition(const Vec2F & position) override;
 		virtual float getAttackPower() const;
+		virtual int getGoldCost() const;
 	};
 }

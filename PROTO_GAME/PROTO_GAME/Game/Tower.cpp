@@ -53,6 +53,11 @@ void Tower::Update(double dt)
 	}
 }
 
+int Tower::getGoldCost() const
+{
+	return 100;
+}
+
 BaseTowerStrategy * Tower::getStrategy() const
 {
 	return m_strategy.get();
