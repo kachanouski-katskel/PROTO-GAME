@@ -21,7 +21,7 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 	if (!isEnemy)
 	{
 		std::shared_ptr<Tower> tower = std::make_shared<Tower>(this);
-		Vec2I towerPos = Vec2I(60, 55);
+		Vec2I towerPos = Vec2I(50, 75);
 		Vec2F tPos = game->getField()->getCoordsByPosition(towerPos);
 		tower->setFieldPosition(towerPos);
 		tower->setPosition(tPos);
@@ -29,8 +29,8 @@ ArmyState::ArmyState(GameBase* game, bool isEnemy)
 	}
 	else
 	{
-		Vec2I pos = Vec2I(70, 80);
-		std::shared_ptr<CloudObject> cloud = std::make_shared<CloudObject>(this, game->getField()->getCoordsByPosition(pos));
+		Vec2I pos = Vec2I(40, 60);
+		std::shared_ptr<CloudObject> cloud = std::make_shared<CloudObject>(this, game->getField()->getCoordsByPosition(bastionPos));
 		cloud->setFieldPosition(pos);
 		m_clouds.push_back(cloud);
 	}

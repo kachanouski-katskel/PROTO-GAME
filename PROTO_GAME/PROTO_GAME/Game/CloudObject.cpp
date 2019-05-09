@@ -6,7 +6,7 @@
 using namespace ProtoGame;
 
 CloudObject::CloudObject(ICloudAddable* cloudAddable, Vec2F position):
-	BattleObject(TTileType::TT_CLOUD),
+	BattleObject(TTileType::TT_CLOUD, ZOrder::Z_CLOUD),
 	m_cloudAddable(cloudAddable)
 {
 	setVisible(true);

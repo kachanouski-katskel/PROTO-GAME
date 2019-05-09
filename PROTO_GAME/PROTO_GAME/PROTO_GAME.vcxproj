@@ -182,6 +182,7 @@
     <ClCompile Include="Render\DisplayObject.cpp" />
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="Storage\TextureStorage.cpp" />
+    <ClCompile Include="ViewManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\ArmyState.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="Render\Vec2.h" />
     <ClInclude Include="Storage\TextureStorage.h" />
+    <ClInclude Include="ViewManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
