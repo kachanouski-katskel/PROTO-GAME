@@ -1,6 +1,5 @@
 #pragma once
 #include "HPBar.h"
-#include <iostream>
 
 namespace ProtoGame
 {
@@ -40,7 +39,6 @@ namespace ProtoGame
 		}
 		virtual void removeHP(float value)
 		{
-			std::cout << "remove " << value << "real: " << value / m_defenceScale << std::endl;
 			m_hp -= value / m_defenceScale;
 			m_hpBar.setHp(m_hp);
 		}

@@ -24,4 +24,5 @@ namespace ProtoGame
 	public:
 		virtual void AddCloud(std::shared_ptr<CloudObject> cloud) = 0;
 	};
+
 }

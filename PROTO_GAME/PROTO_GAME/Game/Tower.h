@@ -30,6 +30,7 @@ namespace ProtoGame
 
 		virtual void TryAttack(std::shared_ptr<BattleObject> target);
 		virtual void Update(double dt);
+		int getGoldCost() const override;
 
 		BaseTowerStrategy* getStrategy() const;
 	};

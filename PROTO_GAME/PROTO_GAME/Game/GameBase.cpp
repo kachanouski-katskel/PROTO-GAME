@@ -3,10 +3,11 @@
 #include "Field.h"
 #include "ArmyState.h"
 
+#include <iostream>
 #include <memory>
 using namespace ProtoGame;
 
-const ArmyState * ProtoGame::GameBase::getOppositeArmy(const ArmyState* state) const
+const ArmyState* GameBase::getOppositeArmy(const ArmyState* state) const
 {
 	if (state == m_enemyArmy.get()) 
 	{
@@ -15,7 +16,16 @@ const ArmyState * ProtoGame::GameBase::getOppositeArmy(const ArmyState* state) c
 	return m_enemyArmy.get();
 }
 
-Field * ProtoGame::GameBase::getField() const
+GoldController* GameBase::getGoldController(const ArmyState* state) const
+{
+	if (state == m_enemyArmy.get())
+	{
+		return m_userGoldController.get();
+	}
+	return nullptr;
+}
+
+Field * GameBase::getField() const
 {
 	return m_field;
 }
@@ -34,6 +44,7 @@ void GameBase::Init()
 	m_comboChecker = std::make_unique<ComboChecker>(m_field);
 	m_userArmy = std::make_shared<ArmyState>(this, false);
 	m_enemyArmy = std::make_shared<ArmyState>(this, true);
+	m_userGoldController = std::make_shared<GoldController>();
 }
 
 void GameBase::MouseDown(int x, int y)
@@ -87,4 +98,30 @@ void ProtoGame::GameBase::setFinished(bool value)
 Vec2F ProtoGame::GameBase::getFieldSize() const
 {
 	return {m_field->getWidth() * m_field->getTileSize(), m_field->getHeight() * m_field->getTileSize()};
+}
+
+/////////////////////////////
+
+GoldController::GoldController()
+{
+}
+
+GoldController::~GoldController()
+{
+}
+
+bool GoldController::tryUseGold(int amount)
+{
+	if (m_goldAmount < amount)
+	{
+		return false;
+	}
+	m_goldAmount -= amount;
+	return true;
+}
+
+void GoldController::addGold(int amount)
+{
+	std::cout << "was: " << m_goldAmount << " now: " << m_goldAmount + amount << std::endl;
+	m_goldAmount += amount;
 }

@@ -14,6 +14,7 @@ namespace ProtoGame
 	class GameBase;
 	class TowerBall;
 	class CloudObject;
+	class BattleObject;
 
 	class ArmyState :
 		public IUnitAddable,
@@ -38,6 +39,7 @@ namespace ProtoGame
 		void AddTower(std::shared_ptr<Tower> tower);
 
 		virtual void onUpdate(double dt);
+		virtual void onBattleObjectDead(const BattleObject* object);
 
 		const VecShared<EnemyUnit>& getUnits() const;
 		const VecShared<Tower>& getTowers() const;

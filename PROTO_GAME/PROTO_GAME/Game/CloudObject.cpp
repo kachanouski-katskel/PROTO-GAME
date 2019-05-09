@@ -89,3 +89,8 @@ float CloudObject::getDefenceScale() const
 {
 	return m_defenceScale * (1 - (m_ExpansionLevel - 1) / m_maxExpansionLevel);
 }
+
+int CloudObject::getGoldCost() const
+{
+	return 20;
+}

@@ -17,3 +17,8 @@ float BattleObject::getAttackPower() const
 {
 	return m_attackPower * getAttackScale();
 }
+
+int BattleObject::getGoldCost() const
+{
+	return 0;
+}

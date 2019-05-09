@@ -75,3 +75,8 @@ float ProtoGame::EnemyUnit::getAttackRadius() const
 {
 	return m_attackRadius;
 }
+
+int EnemyUnit::getGoldCost() const
+{
+	return 50;
+}

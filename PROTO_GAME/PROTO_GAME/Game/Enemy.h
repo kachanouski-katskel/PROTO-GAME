@@ -29,5 +29,6 @@ namespace ProtoGame
 		void MoveTo(Vec2F pos, double dt);
 		float getMoveSpeed() const;
 		float getAttackRadius() const;
+		int getGoldCost() const override;
 	};
 }

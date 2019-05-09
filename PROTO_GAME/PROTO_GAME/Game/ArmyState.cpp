@@ -126,6 +126,7 @@ void ArmyState::onUpdate(double dt)
 		if (tower->isDead())
 		{
 			towersToDelete.push_back(tower.get());
+			onBattleObjectDead(tower.get());
 			continue;
 		}
 		tower->Update(dt);
@@ -137,6 +138,7 @@ void ArmyState::onUpdate(double dt)
 		if (unit->isDead())
 		{
 			unitsToDelete.push_back(unit.get());
+			onBattleObjectDead(unit.get());
 			continue;
 		}
 		unit->onUpdate(dt);
@@ -150,6 +152,7 @@ void ArmyState::onUpdate(double dt)
 		if (cloud->isDead())
 		{
 			cloudsToDelete.push_back(cloud.get());
+			onBattleObjectDead(cloud.get());
 			continue;
 		}
 		cloud->onUpdate(dt);
@@ -190,4 +193,12 @@ void ArmyState::onUpdate(double dt)
 			}),
 		m_clouds.end()
 	);
+}
+
+void ArmyState::onBattleObjectDead(const BattleObject* object)
+{
+	if (m_game->getGoldController(this) != nullptr)
+	{
+		m_game->getGoldController(this)->addGold(object->getGoldCost());
+	}
 }

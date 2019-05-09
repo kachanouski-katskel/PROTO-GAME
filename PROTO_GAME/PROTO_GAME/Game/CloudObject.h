@@ -45,5 +45,7 @@ namespace ProtoGame
 
 		float getAttackScale() const;
 		float getDefenceScale() const;
+
+		int getGoldCost() const override;
 	};
 }

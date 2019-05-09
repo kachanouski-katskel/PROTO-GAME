@@ -10,14 +10,32 @@ namespace ProtoGame
 	class EnemyUnit;
 	class ArmyState;
 
+	class GoldController
+	{
+	private:
+		int m_goldAmount = 0;
+
+	public:
+		GoldController();
+		virtual ~GoldController();
+
+		virtual bool tryUseGold(int amount);
+		virtual void addGold(int amount);
+	};
+
 	class GameBase
 	{
 	private:
+		int m_goldAmount = 0;
+
+
 		bool m_finished = false;
 
 		std::vector<Tile*> m_tiles;
 		std::shared_ptr<ArmyState> m_userArmy;
 		std::shared_ptr<ArmyState> m_enemyArmy;
+
+		std::shared_ptr<GoldController> m_userGoldController;
 
 		std::unique_ptr<ComboChecker> m_comboChecker;
 		Field* m_field;
@@ -39,6 +57,7 @@ namespace ProtoGame
 		Vec2F getFieldSize() const;
 
 		const ArmyState* getOppositeArmy(const ArmyState* state) const;
+		GoldController* getGoldController(const ArmyState* state) const;
 		Field* getField() const;
 	};
 }
