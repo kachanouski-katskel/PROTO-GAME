@@ -45,6 +45,7 @@ void GameBase::Init()
 	m_userArmy = std::make_shared<ArmyState>(this, false);
 	m_enemyArmy = std::make_shared<ArmyState>(this, true);
 	m_userGoldController = std::make_shared<GoldController>();
+	m_buildCost = 20;
 }
 
 void GameBase::MouseDown(int x, int y)
@@ -54,9 +55,14 @@ void GameBase::MouseDown(int x, int y)
 void GameBase::MouseUp(int x, int y)
 {	
 	Vec2I pos = m_field->getPositionByCoords(Vec2F(x, y));
+	if (!m_userGoldController->canUseGold(m_buildCost))
+	{
+		return;
+	}
 	bool placed = m_field->placeBuildingBlock(pos);
 	if (placed)
 	{
+		m_userGoldController->useGold(m_buildCost);
 		std::shared_ptr<Tower> tower = m_comboChecker->performCheck(pos, m_userArmy.get());
 		if (tower != nullptr)
 		{
@@ -110,18 +116,19 @@ GoldController::~GoldController()
 {
 }
 
-bool GoldController::tryUseGold(int amount)
+void GoldController::useGold(int amount)
 {
-	if (m_goldAmount < amount)
-	{
-		return false;
-	}
+	std::cout << "was: " << m_goldAmount << " now: " << m_goldAmount - amount << std::endl;
 	m_goldAmount -= amount;
-	return true;
 }
 
 void GoldController::addGold(int amount)
 {
 	std::cout << "was: " << m_goldAmount << " now: " << m_goldAmount + amount << std::endl;
 	m_goldAmount += amount;
+}
+
+bool GoldController::canUseGold(int amount) const
+{
+	return m_goldAmount >= amount;
 }

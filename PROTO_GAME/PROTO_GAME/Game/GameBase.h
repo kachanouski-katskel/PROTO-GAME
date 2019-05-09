@@ -19,15 +19,15 @@ namespace ProtoGame
 		GoldController();
 		virtual ~GoldController();
 
-		virtual bool tryUseGold(int amount);
+		virtual bool canUseGold(int amount) const;
+		virtual void useGold(int amount);
 		virtual void addGold(int amount);
 	};
 
 	class GameBase
 	{
 	private:
-		int m_goldAmount = 0;
-
+		int m_buildCost = 0;
 
 		bool m_finished = false;
 
