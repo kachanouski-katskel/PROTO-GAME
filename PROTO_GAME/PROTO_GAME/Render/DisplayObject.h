@@ -14,8 +14,10 @@ namespace ProtoGame
 	enum class ZOrder
 	{
 		Z_DEFAULT,
+		Z_BASTION,
 		Z_HIGHLIGHT,
 		Z_UNIT,
+		Z_HPBAR,
 		Z_CLOUD
 	};
 

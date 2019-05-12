@@ -48,5 +48,7 @@ namespace ProtoGame
 		Tile* getFieldTile(Vec2I position) const;
 		bool placeBuildingBlock(Vec2I position);
 		void placeBigTile(std::shared_ptr<Tile> tile, Vec2I position, int width, int height);
+
+		void removeTileFromField(Tile* tile);
 	};
 }

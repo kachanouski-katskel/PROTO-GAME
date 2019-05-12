@@ -127,6 +127,21 @@ void ProtoGame::Field::placeBigTile(std::shared_ptr<Tile> tile, Vec2I position, 
 	}
 }
 
+void ProtoGame::Field::removeTileFromField(Tile * tile)
+{
+	for (int i = 0; i < m_fieldData.size(); i++)
+	{
+		for (int j = 0; j < m_fieldData[i].size(); j++)
+		{
+			if (m_fieldData[i][j] && tile == m_fieldData[i][j].get())
+			{
+				m_fieldData[i][j].reset();
+				m_fieldData[i][j] = nullptr;
+			}
+		}
+	}
+}
+
 FieldBackground::FieldBackground(int width, int height) : ProtoGame::DisplayObject(new sf::Sprite())
 {
 	sf::Texture& ground = TextureStorage::getInstance()->getTexture("ground");

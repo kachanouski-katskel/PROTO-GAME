@@ -127,6 +127,7 @@ void ArmyState::onUpdate(double dt)
 		{
 			buildingsToDelete.push_back(tower.get());
 			onBattleObjectDead(tower.get());
+			m_game->getField()->removeTileFromField(tower.get());
 			continue;
 		}
 		tower->Update(dt);

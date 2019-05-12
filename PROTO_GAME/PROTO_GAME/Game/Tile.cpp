@@ -51,6 +51,11 @@ void ProtoGame::Tile::swapTexture(TTileType type)
 	{
 		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("barracks"));
 	}
+	else if (type == TTileType::TT_BASTION)
+	{
+		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("bastion"));
+		setScale(1.f / 1.5f);
+	}
 }
 
 Tile::Tile(ZOrder zOrder /* = ZOrder::Z_DEFAULT */) : DisplayObject(new sf::Sprite(), zOrder)

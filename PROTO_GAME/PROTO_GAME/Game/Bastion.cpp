@@ -6,11 +6,13 @@
 using namespace ProtoGame;
 
 Bastion::Bastion(IUnitAddable* unitAddable) :
-	BattleObject(TTileType::TT_BASTION),
+	BattleObject(TTileType::TT_BASTION, ZOrder::Z_BASTION),
 	m_unitAddable(unitAddable)
 {
 	setHP(30);
 	setMaxHP(getHP());
+
+	setVisible(true);
 
 	m_unitCreatitonTimer = 9.0f;
 	m_unitCreationRepeat = 10.0f;

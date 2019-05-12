@@ -21,7 +21,7 @@ void ProtoGame::HPBar::recalculateBarSizes()
 	}
 }
 
-ProtoGame::HPBar::HPBar() : ProtoGame::DisplayObject(static_cast<sf::Sprite*>(nullptr))
+ProtoGame::HPBar::HPBar() : ProtoGame::DisplayObject(static_cast<sf::Sprite*>(nullptr), ZOrder::Z_HPBAR)
 {
 	m_barBackground = std::make_shared<sf::RectangleShape>();
 	m_barInner = std::make_shared<sf::RectangleShape>();

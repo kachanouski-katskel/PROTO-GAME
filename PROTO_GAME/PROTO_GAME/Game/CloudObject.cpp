@@ -16,12 +16,12 @@ CloudObject::CloudObject(ICloudAddable* cloudAddable, Vec2F position):
 	setAlpha(0.5f);
 	m_startDiam = 14.0f;
 	m_maxDiam = 21.0f;
-	m_baseMoveTime = 10.0f;
+	m_baseMoveTime = 3.0f;
 	setInitialScale(m_startDiam * Field::g_tileSize / getSize().mPosX);
 	setScale(m_initialScale);
 
-	m_attackScale = 1.5f;
-	m_defenceScale = 1.5f;
+	m_attackScale = 3.f;
+	m_defenceScale = 3.f;
 }
 
 CloudObject::~CloudObject()

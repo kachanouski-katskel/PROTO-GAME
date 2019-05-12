@@ -15,8 +15,8 @@ namespace ProtoGame
 		const float m_backgroundWidth = 50.f;
 		const float m_backgroundHeight = 10.f;
 
-		std::shared_ptr<sf::RectangleShape> m_barBackground;
-		std::shared_ptr<sf::RectangleShape> m_barInner;
+		std::shared_ptr<sf::RectangleShape> m_barBackground = nullptr;
+		std::shared_ptr<sf::RectangleShape> m_barInner = nullptr;
 
 		float m_maxHp = 0;
 		float m_currentHp = 0;
