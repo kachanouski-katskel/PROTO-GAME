@@ -110,7 +110,10 @@ std::vector<Vec2F> getControlPoints(Vec2I start, Vec2I end, const Field* field)
 			}
 		}
 	}
-	ans.pop_back();
+	if (!ans.empty())
+	{
+		ans.pop_back();
+	}
 	std::vector<Vec2F> ansVec;
 	std::transform(
 		ans.begin(),
