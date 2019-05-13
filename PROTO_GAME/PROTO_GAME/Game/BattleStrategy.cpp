@@ -131,7 +131,17 @@ std::vector<Vec2F> getControlPoints(Vec2I start, Vec2I end, const Field* field)
 	return ansVec;
 }
 
-std::shared_ptr<BattleObject> getNearestEnemy(Vec2F curPosition, const ArmyState* state, const Field* field, bool onlyUnits = false)
+VecShared<BattleObject> getClouds(const ArmyState* state)
+{
+	VecShared<BattleObject> possibles;
+	for (auto& cloud : state->getClouds())
+	{
+		possibles.emplace_back(cloud);
+	}
+	return possibles;
+}
+
+VecShared<BattleObject> getEnemies(const ArmyState* state, bool onlyUnits = false)
 {
 	VecShared<BattleObject> possibles;
 	for (auto& enemy : state->getUnits())
@@ -146,17 +156,37 @@ std::shared_ptr<BattleObject> getNearestEnemy(Vec2F curPosition, const ArmyState
 		}
 		possibles.emplace_back(state->getBastion());
 	}
-	std::sort(possibles.begin(), possibles.end(),
-		[=](const auto& first, const auto& second)
-		{
-			return (curPosition - first->getPosition()).len() < (curPosition - second->getPosition()).len();
-		}
-	);
-	if (possibles.empty())
+	return possibles;
+}
+
+std::shared_ptr<BattleObject> getNearestObject(Vec2F curPosition, const VecShared<BattleObject>& objects)
+{
+	if (objects.empty())
 	{
 		return std::shared_ptr<BattleObject>();
 	}
-	return possibles.front();
+	int minIndex = -1;
+	float minDist = 1e9;
+	for (int i = 0; i < objects.size(); i++)
+	{
+		int len = (curPosition - objects[i]->getPosition()).len();
+		if (len < minDist) 
+		{
+			minDist = len;
+			minIndex = i;
+		}
+	}
+	return objects[minIndex];
+}
+
+std::shared_ptr<BattleObject> getNearestEnemy(Vec2F curPosition, const ArmyState* state, const Field* field, bool onlyUnits = false)
+{
+	return getNearestObject(curPosition, getEnemies(state, onlyUnits));
+}
+
+std::shared_ptr<BattleObject> getNearestCloud(Vec2F curPosition, const ArmyState* state, const Field* field)
+{
+	return getNearestObject(curPosition, getClouds(state));
 }
 
 void BaseEnemyMoveStrategy::MakeMove(EnemyUnit * unit, const ArmyState * state, const Field* field, double dt)
@@ -252,5 +282,14 @@ void SimpleCloudExpansionStrategy::MakeMove(CloudObject* object, const ArmyState
 		{
 			counter++;
 		}
+	}
+}
+
+void CloudTowerStrategy::MakeMove(Building * tower, const ArmyState * state, const Field * field, double dt)
+{
+	auto enemyInfo = getNearestCloud(tower->getPosition(), state, field);
+	if (enemyInfo)
+	{
+		dynamic_cast<Tower*>(tower)->TryAttack(enemyInfo);
 	}
 }

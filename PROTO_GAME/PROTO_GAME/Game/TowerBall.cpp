@@ -4,8 +4,8 @@ using namespace ProtoGame;
 
 static const float EPS = 0.0001f;
 
-TowerBall::TowerBall(std::shared_ptr<BattleObject> target, float attackPower, Vec2F startPos) : 
-	Tile(TTileType::TT_TOWER_BALL), 
+TowerBall::TowerBall(std::shared_ptr<BattleObject> target, float attackPower, Vec2F startPos, TTileType ballType /* = TTileType::TT_TOWER_ENEMY_BALL */) :
+	Tile(ballType),		
 	m_target(target), 
 	m_attackPower(attackPower)
 {

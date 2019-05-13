@@ -19,7 +19,7 @@ namespace ProtoGame
 		bool m_canAttackNow = true;
 
 		float m_attackRadius = 0.0f;	
-
+		TTileType m_ballType = TTileType::TT_TOWER_ENEMY_BALL;
 		ITowerBallAddable* m_towerBallAddable = nullptr;
 
 	public:
@@ -28,6 +28,17 @@ namespace ProtoGame
 
 		virtual void TryAttack(std::shared_ptr<BattleObject> target);
 		virtual void Update(double dt) override;
+		int getGoldCost() const override;
+	};
+
+
+	class CloudTower :
+		public Tower
+	{
+	public:
+		CloudTower(ITowerBallAddable* ballAddable);
+		virtual ~CloudTower();
+
 		int getGoldCost() const override;
 	};
 

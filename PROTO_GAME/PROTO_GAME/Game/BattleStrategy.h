@@ -39,6 +39,13 @@ namespace ProtoGame
 		void MakeMove(Building* tower, const ArmyState* state, const Field* field, double dt) override;
 	};
 
+	class CloudTowerStrategy :
+		public BaseBuildingStrategy
+	{
+	public:
+		void MakeMove(Building* tower, const ArmyState* state, const Field* field, double dt) override;
+	};
+
 	class BarracksStrategy :
 		public BaseBuildingStrategy
 	{

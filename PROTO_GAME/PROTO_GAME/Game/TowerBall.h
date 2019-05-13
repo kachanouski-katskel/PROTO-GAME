@@ -17,7 +17,7 @@ namespace ProtoGame
 		std::weak_ptr<BattleObject> m_target;
 
 	public:
-		TowerBall(std::shared_ptr<BattleObject> target, float m_attackPower, Vec2F startPos);
+		TowerBall(std::shared_ptr<BattleObject> target, float m_attackPower, Vec2F startPos, TTileType ballType = TTileType::TT_TOWER_ENEMY_BALL);
 		~TowerBall();
 
 		void Update(double dt);

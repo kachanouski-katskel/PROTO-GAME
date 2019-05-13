@@ -31,7 +31,7 @@ void Tower::TryAttack(std::shared_ptr<BattleObject> target)
 	{
 		if ((target->getPosition() - getPosition()).len() < m_attackRadius)
 		{
-			std::shared_ptr<TowerBall> ball = std::make_shared<TowerBall>(target, getAttackPower(), getPosition());
+			std::shared_ptr<TowerBall> ball = std::make_shared<TowerBall>(target, getAttackPower(), getPosition(), m_ballType);
 			assert(m_towerBallAddable != nullptr);
 			if (m_towerBallAddable != nullptr)
 			{
@@ -56,4 +56,33 @@ void Tower::Update(double dt)
 int Tower::getGoldCost() const
 {
 	return 100;
+}
+
+
+//////////////////////////////////////////////////////////////
+
+
+CloudTower::CloudTower(ITowerBallAddable * ballAddable):
+	Tower(ballAddable)
+{
+	setVisible(true);
+	setHP(500.0f);
+	setMaxHP(getHP());
+
+	m_attackDelay = 3.0f;
+	m_attackPower = 8.0f;
+	m_attackRadius = 200.0f;
+
+	m_ballType = TTileType::TT_TOWER_CLOUD_BALL;
+
+	m_strategy = std::make_shared<CloudTowerStrategy>();
+}
+
+CloudTower::~CloudTower()
+{
+}
+
+int CloudTower::getGoldCost() const
+{
+	return 20;
 }

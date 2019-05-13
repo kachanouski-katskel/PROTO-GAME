@@ -25,6 +25,7 @@ void ProtoGame::TextureStorage::loadTextures()
 	m_texturesMap["ball"].loadFromFile("Resources/Textures/cloud.png");
 	m_texturesMap["barracks"].loadFromFile("Resources/Textures/barracks.png");
 	m_texturesMap["bastion"].loadFromFile("Resources/Textures/bastion.png");
+	m_texturesMap["ice_ball"].loadFromFile("Resources/Textures/ice_ball.png");
 }
 
 void ProtoGame::TextureStorage::releaseTextures()

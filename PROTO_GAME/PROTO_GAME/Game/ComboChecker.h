@@ -18,9 +18,16 @@ namespace ProtoGame
 			CBT_SIMPLE
 		};
 
+		enum class ComboResult
+		{
+			CR_ENEMY_TOWER,
+			CR_CLOUD_TOWER,
+			CR_BARRACKS
+		};
+
 		struct Combo
 		{
-			TTileType comboResult;
+			ComboResult comboResult;
 			int size;
 			std::vector<ComboBlockType> comboShape;
 		};

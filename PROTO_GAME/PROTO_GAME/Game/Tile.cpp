@@ -27,9 +27,15 @@ void ProtoGame::Tile::swapTexture(TTileType type)
 		setScale(1.f / 4.f);
 		m_sprite->setOrigin({ m_sprite->getTexture()->getSize().x / 2.f, m_sprite->getTexture()->getSize().y / 2.f });
 	}
-	else if (type == TTileType::TT_TOWER_BALL)
+	else if (type == TTileType::TT_TOWER_ENEMY_BALL)
 	{
 		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("ball"));
+		setScale(16.0f / getSize().mPosX);
+		m_sprite->setOrigin({ m_sprite->getTexture()->getSize().x / 2.f, m_sprite->getTexture()->getSize().y / 2.f });
+	}
+	else if (type == TTileType::TT_TOWER_CLOUD_BALL)
+	{
+		m_sprite->setTexture(TextureStorage::getInstance()->getTexture("ice_ball"));
 		setScale(16.0f / getSize().mPosX);
 		m_sprite->setOrigin({ m_sprite->getTexture()->getSize().x / 2.f, m_sprite->getTexture()->getSize().y / 2.f });
 	}
